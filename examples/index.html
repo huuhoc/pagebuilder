@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Builder Example</title>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="./../dist/pagebuilder.umd.js"></script>
+    <link href="./../dist/pagebuilder.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="embedded-eds-widgets"></div>
+
+    <script type="text/javascript">
+      console.log('PageBuilder: ', PageBuilder)
+      PageBuilder.PageBuilder.mount({
+        root: 'embedded-eds-widgets',
+        appApi: 'https://apiam.moha.gov.vn/widgetmaker/1.0.0/api/',
+        tokenKey: 'accessToken',
+        refreshTokenKey: 'refresh_token',
+      })
+    </script>
+  </body>
+</html>
