@@ -1,8 +1,9 @@
 import { createApp } from 'vue'
+import { createPinia } from 'pinia'
 
 import App from '../src/App.vue'
 
-import '../src/assets/style.css'
+import '../src/assets/index.css'
 
 interface TypeBuilderConfig {
   root: string
@@ -37,6 +38,7 @@ export class PageBuilder {
         }
         // Create Vue app
         this.app = createApp(App)
+        this.app.use(createPinia())
 
         // Mount Vue app to the root element
         this.app.mount(rootElement)

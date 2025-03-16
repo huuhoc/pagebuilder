@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+#app-aqt {
+  width: 100%;
+}
+
+/* Sidebar */
+.aqt-sidebar {
+  padding: 12px;
+}
+.aqt-sidebar__title {
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+.aqt-sidebar__element {
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+  background-color: #f3f4f6;
+  border-radius: 0.375rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s;
+}
+
+.aqt-sidebar__element:hover {
+  background-color: #e5e7eb;
+  transform: translateY(-1px);
+}
+
+/* Draggable element styling */
+.smooth-dnd-container.vertical {
+  min-height: 30px;
+}
+
+.smooth-dnd-draggable-wrapper {
+  margin-bottom: 0.5rem;
+}
+
+/* Add animation for drag and drop */
+.smooth-dnd-ghost {
+  opacity: 0.5;
+  transform: scale(0.98);
+}
+
+.smooth-dnd-drop-preview {
+  border: 2px dashed #4f46e5;
+  border-radius: 0.375rem;
+}
