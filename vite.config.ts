@@ -4,6 +4,7 @@ import path from 'node:path'
 import autoprefixer from 'autoprefixer'
 import tailwind from 'tailwindcss'
 import { defineConfig } from 'vite'
+import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -17,7 +18,14 @@ export default defineConfig({
       plugins: [tailwind(), autoprefixer()],
     },
   },
-  plugins: [vue(), vueDevTools()],
+  plugins: [
+    vue(),
+    vueDevTools(),
+    createSvgIconsPlugin({
+      iconDirs: [path.resolve(process.cwd(), 'src/icons')],
+      symbolId: 'icon-[dir]-[name]',
+    }),
+  ],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),

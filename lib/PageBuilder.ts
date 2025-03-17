@@ -1,7 +1,9 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
+import 'virtual:svg-icons-register'
 
 import App from '../src/App.vue'
+import SvgIcon from '@/components/SvgIcon.vue'
 
 import '../src/assets/index.css'
 
@@ -39,6 +41,7 @@ export class PageBuilder {
         // Create Vue app
         this.app = createApp(App)
         this.app.use(createPinia())
+        this.app.component('SvgIcon', SvgIcon)
 
         // Mount Vue app to the root element
         this.app.mount(rootElement)

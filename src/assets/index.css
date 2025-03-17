@@ -2,16 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
-  box-sizing: border-box;
-}
-
-html,
-body {
-  margin: 0;
-  padding: 0;
-}
-
 #app-aqt {
   width: 100%;
 }
@@ -20,11 +10,13 @@ body {
 .aqt-sidebar {
   padding: 12px;
 }
+
 .aqt-sidebar__title {
   font-weight: bold;
   font-size: 16px;
   margin-bottom: 10px;
 }
+
 .aqt-sidebar__element {
   padding: 0.75rem;
   margin-bottom: 0.5rem;
