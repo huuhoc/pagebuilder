@@ -2,7 +2,7 @@
 import { onMounted, ref } from 'vue'
 import type { ListItemsElementType } from '@/types'
 import { useElementStore } from '@/stores/layouts'
-import ConfigModal from '@/components/ConfigModal.vue'
+import ConfigFeaturePostModal from '@/components/ConfigFeaturePostModal.vue'
 
 const props = defineProps<{
   dataItem: ListItemsElementType
@@ -91,8 +91,9 @@ const savePostChanges = (updatedPost: any) => {
       </div>
     </div>
   </div>
-  <!-- Edit Modal -->
-  <ConfigModal
+
+  <!-- Config Modal -->
+  <ConfigFeaturePostModal
     :is-open="isEditModalOpen"
     :post-data="postContent"
     @close="isEditModalOpen = false"

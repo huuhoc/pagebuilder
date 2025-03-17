@@ -11,12 +11,13 @@
     <link href="./../dist/pagebuilder.css" rel="stylesheet" />
   </head>
   <body>
-    <div id="embedded-eds-widgets" style="width: 100%"></div>
+    <div id="pagebuilder-contain" style="width: 100%"></div>
 
     <script type="text/javascript">
       PageBuilder.PageBuilder.mount({
-        root: 'embedded-eds-widgets',
-        appApi: 'sdsds/api/',
+        root: 'pagebuilder-contain',
+        appApi: 'https://haufo-apicms-dev.aequitas.dev',
+        appCoreApi: 'https://haufo-core-dev.aequitas.dev',
         tokenKey: 'accessToken',
         refreshTokenKey: 'refresh_token',
       })

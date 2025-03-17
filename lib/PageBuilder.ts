@@ -1,25 +1,19 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import 'virtual:svg-icons-register'
+import { useConfigStore } from '../src/stores/configStore'
+import type { ConfigState } from '../src/types/index'
 
 import App from '../src/App.vue'
-import SvgIcon from '@/components/SvgIcon.vue'
+import SvgIcon from '../src/components/SvgIcon.vue'
 
 import '../src/assets/index.css'
-
-interface TypeBuilderConfig {
-  root: string
-  appApi: string
-  tokenKey?: string
-  refreshTokenKey?: string
-}
-
 export class PageBuilder {
   static el: HTMLElement
 
   private static app: ReturnType<typeof createApp> | null = null
 
-  static mount(config: TypeBuilderConfig): void {
+  static mount(config: ConfigState): void {
     try {
       // Validate required parameters
       if (!config.root || !config.appApi) {
@@ -40,7 +34,16 @@ export class PageBuilder {
         }
         // Create Vue app
         this.app = createApp(App)
-        this.app.use(createPinia())
+
+        // Initialize Pinia
+        const pinia = createPinia()
+        this.app.use(pinia)
+
+        // Initialize config store with provided configuration
+        const configStore = useConfigStore(pinia)
+        configStore.initialize(config)
+
+        // Set component global
         this.app.component('SvgIcon', SvgIcon)
 
         // Mount Vue app to the root element
@@ -65,5 +68,9 @@ export class PageBuilder {
       this.app.unmount()
       this.app = null
     }
+  }
+
+  static save(): void {
+    console.log('Saving layout .....')
   }
 }

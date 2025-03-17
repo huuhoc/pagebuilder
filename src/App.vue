@@ -1,9 +1,6 @@
 <script setup lang="ts">
+import { resolveComponent } from 'vue'
 import { Container, Draggable } from 'vue3-smooth-dnd'
-// import ElSection from '@/components/ElSection.vue'
-// import ElSliderPost from '@/components/ElSliderPost.vue'
-// import ElListPost from '@/components/ElListPost.vue'
-// import ElFeaturePost from '@/components/ElFeaturePost.vue'
 import { useElementStore } from '@/stores/layouts'
 
 // Use the element store
@@ -43,7 +40,7 @@ const layoutStore = useElementStore()
       >
         <Draggable v-for="item in layoutStore.layoutElements" :key="item.id" class="flex">
           <component
-            :is="item.data.component"
+            :is="resolveComponent(item.data.component)"
             :dataItem="item"
             @onDropSection="(value: any) => layoutStore.handleDropSection(value)"
             @delete="layoutStore.deleteElement"

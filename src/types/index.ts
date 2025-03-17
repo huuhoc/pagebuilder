@@ -7,3 +7,13 @@ export interface ListItemsElementType {
   children?: ListItemsElementType[]
   content?: any
 }
+
+export interface ConfigState {
+  root: string
+  appApi: string
+  appCoreApi: string
+  layoutId?: string
+  tokenKey?: string
+  refreshTokenKey?: string
+  isInitialized?: boolean
+}

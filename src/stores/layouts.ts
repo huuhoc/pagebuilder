@@ -15,28 +15,52 @@ export const useElementStore = defineStore('element', () => {
     {
       id: uuidv6(),
       data: {
-        component: markRaw(ElSliderPost),
+        component: 'ElSliderPost',
         title: 'Slider Post',
       },
     },
     {
       id: uuidv6(),
       data: {
-        component: markRaw(ElListPost),
+        component: 'ElListPost',
         title: 'List Post',
       },
     },
     {
       id: uuidv6(),
       data: {
-        component: markRaw(ElFeaturePost),
+        component: 'ElFeaturePost',
         title: 'Feature Post',
       },
     },
   ])
 
   // Layout elements (actual placed elements)
-  const layoutElements = ref<ListItemsElementType[]>([])
+  const layoutElements = ref<ListItemsElementType[]>([
+    {
+      id: '1f00319b-c0d2-6850-b167-2a68088f6406',
+      data: {
+        component: ref('ElSection'),
+        title: 'Section',
+      },
+      children: [
+        {
+          id: '1f00319c-2807-66b0-b8f8-1841062a2314',
+          data: {
+            component: ref('ElListPost'),
+            title: 'List Post',
+          },
+        },
+        {
+          id: '1f00319c-189b-6aa0-b1d6-ba7e27ef62fe',
+          data: {
+            component: ref('ElListPost'),
+            title: 'List Post',
+          },
+        },
+      ],
+    },
+  ])
 
   // Helper function for drag and drop
   const applyDrag = (arr: ListItemsElementType[], dragResult: any) => {
@@ -66,7 +90,7 @@ export const useElementStore = defineStore('element', () => {
     layoutElements.value.push({
       id: uuidv6(),
       data: {
-        component: ElSection,
+        component: 'ElSection',
         title: 'Section',
       },
       children: [],
@@ -127,6 +151,8 @@ export const useElementStore = defineStore('element', () => {
     return layoutElements.value[index]
   }
 
+  const saveLayout = () => {}
+
   return {
     availableElements,
     layoutElements,
@@ -137,5 +163,6 @@ export const useElementStore = defineStore('element', () => {
     updateElement,
     getChildPayload1,
     getChildPayload2,
+    saveLayout,
   }
 })

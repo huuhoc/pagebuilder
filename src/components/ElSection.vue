@@ -1,7 +1,27 @@
 <script setup lang="ts">
+import { onMounted, ref, resolveComponent } from 'vue'
 import type { ListItemsElementType } from '@/types'
 import { Container, Draggable } from 'vue3-smooth-dnd'
 import { useElementStore } from '@/stores/layouts'
+import ConfigSectionModal from '@/components/ConfigSectionModal.vue'
+
+// import ElSection from '@/components/ElSection.vue'
+// import ElSliderPost from '@/components/ElSliderPost.vue'
+// import ElListPost from '@/components/ElListPost.vue'
+// import ElFeaturePost from '@/components/ElFeaturePost.vue'
+
+// Map component names to their actual imported components
+// const componentMap = {
+//   ElSection,
+//   ElListPost,
+//   ElSliderPost,
+//   ElFeaturePost,
+// }
+
+// Function to resolve component from string name
+// const resolveComponent = (name: string) => {
+//   return componentMap[name as keyof typeof componentMap] || null
+// }
 
 const layoutStore = useElementStore()
 
@@ -25,7 +45,44 @@ const handleDelete = () => {
   layoutStore.deleteElement(props.dataItem.id)
 }
 
-const handleConfig = () => {}
+// Modal state
+const isEditModalOpen = ref(false)
+
+// Post content with defaults
+const postContent = ref({
+  id: '',
+  title: '',
+  description: '',
+  imageUrl: '',
+  date: new Date().toISOString().split('T')[0],
+  readingTime: 5,
+})
+
+// Initialize post content from dataItem if available
+onMounted(() => {
+  if (props.dataItem.content) {
+    postContent.value = { ...props.dataItem.content }
+  } else {
+    postContent.value.id = props.dataItem.id
+  }
+})
+
+const handleConfig = () => {
+  isEditModalOpen.value = true
+}
+
+const savePostChanges = (updatedPost: any) => {
+  // Update local state
+  postContent.value = updatedPost
+
+  // Update in store
+  layoutStore.updateElement({
+    id: props.dataItem.id,
+    content: updatedPost,
+  })
+
+  isEditModalOpen.value = false
+}
 </script>
 
 <template>
@@ -51,9 +108,17 @@ const handleConfig = () => {}
         class="!flex gap-3"
       >
         <Draggable v-for="item in dataItem.children" :key="item.id" class="flex">
-          <component :is="item.data.component" :dataItem="item"></component>
+          <component :is="resolveComponent(item.data.component)" :dataItem="item"></component>
         </Draggable>
       </Container>
     </div>
   </div>
+
+  <!-- Config Modal -->
+  <ConfigSectionModal
+    :is-open="isEditModalOpen"
+    :post-data="postContent"
+    @close="isEditModalOpen = false"
+    @save="savePostChanges"
+  />
 </template>
