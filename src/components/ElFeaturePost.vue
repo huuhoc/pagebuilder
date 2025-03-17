@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, defineProps, ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import type { ListItemsElementType } from '@/types'
 import { useElementStore } from '@/stores/layouts'
 import ConfigModal from '@/components/ConfigModal.vue'
@@ -9,8 +9,6 @@ const props = defineProps<{
 }>()
 
 const layoutStore = useElementStore()
-
-const emit = defineEmits(['delete'])
 
 const handleDelete = () => {
   layoutStore.deleteElement(props.dataItem.id)

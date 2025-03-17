@@ -11,7 +11,7 @@ const layoutStore = useElementStore()
 </script>
 
 <template>
-  <div class="flex min-h-screen bg-gray-100">
+  <div class="flex flex-1 bg-gray-100 overflow-hidden">
     <div class="aqt-sidebar w-2/12 border-r border-gray-200">
       <div>
         <h2 class="aqt-sidebar__title">Components</h2>
@@ -32,11 +32,14 @@ const layoutStore = useElementStore()
         </Container>
       </div>
     </div>
-    <div class="space-y-2 w-10/12 p-2.5" ref="container">
+    <div class="space-y-2 w-10/12 p-2.5 overflow-y-auto" ref="container">
       <Container
         :get-child-payload="layoutStore.getChildPayload2"
+        :autoScrollEnabled="true"
         @drop="layoutStore.onDropLayout($event)"
-        class="space-y-2 p-3 border border-dashed border-gray-300 rounded"
+        drag-handle-selector=".drag-handle"
+        lock-axis="y"
+        class="space-y-2"
       >
         <Draggable v-for="item in layoutStore.layoutElements" :key="item.id" class="flex">
           <component

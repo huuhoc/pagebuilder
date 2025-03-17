@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { v6 as uuidv6 } from 'uuid'
-import { ref } from 'vue'
+import { ref, markRaw } from 'vue'
 import type { ListItemsElementType } from '@/types'
 
 // Import your components
@@ -15,21 +15,21 @@ export const useElementStore = defineStore('element', () => {
     {
       id: uuidv6(),
       data: {
-        component: ElSliderPost,
+        component: markRaw(ElSliderPost),
         title: 'Slider Post',
       },
     },
     {
       id: uuidv6(),
       data: {
-        component: ElListPost,
+        component: markRaw(ElListPost),
         title: 'List Post',
       },
     },
     {
       id: uuidv6(),
       data: {
-        component: ElFeaturePost,
+        component: markRaw(ElFeaturePost),
         title: 'Feature Post',
       },
     },
@@ -50,7 +50,11 @@ export const useElementStore = defineStore('element', () => {
       itemToAdd = result.splice(removedIndex, 1)[0]
     }
 
-    if (addedIndex !== null) {
+    if (addedIndex !== null && itemToAdd) {
+      // Ensure component is wrapped with markRaw if it exists
+      if (itemToAdd.data && itemToAdd.data.component) {
+        itemToAdd.data.component = markRaw(itemToAdd.data.component)
+      }
       result.splice(addedIndex, 0, itemToAdd)
     }
 
