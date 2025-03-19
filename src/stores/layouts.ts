@@ -3,64 +3,83 @@ import { v6 as uuidv6 } from 'uuid'
 import { ref, markRaw } from 'vue'
 import type { ListItemsElementType } from '@/types'
 
-// Import your components
-import ElSection from '@/components/ElSection.vue'
-import ElSliderPost from '@/components/ElSliderPost.vue'
-import ElListPost from '@/components/ElListPost.vue'
-import ElFeaturePost from '@/components/ElFeaturePost.vue'
-
 export const useElementStore = defineStore('element', () => {
   // Available element types that can be dragged from sidebar
   const availableElements = ref<ListItemsElementType[]>([
     {
       id: uuidv6(),
-      data: {
-        component: 'ElSliderPost',
+      el: 'ElSliderPost',
+      name: 'Slider Post',
+      content: {
         title: 'Slider Post',
       },
-    },
-    {
-      id: uuidv6(),
-      data: {
-        component: 'ElListPost',
-        title: 'List Post',
+      styles: {
+        column: 6,
       },
     },
     {
       id: uuidv6(),
-      data: {
-        component: 'ElFeaturePost',
+      el: 'ElListPost',
+      name: 'List Post',
+      content: {
+        title: 'List Post',
+      },
+      styles: {
+        column: 3,
+      },
+    },
+    {
+      id: uuidv6(),
+      el: 'ElListPostCategory',
+      name: 'List Post Category',
+      content: {
+        title: 'List Post Category',
+      },
+      styles: {
+        column: 12,
+      },
+    },
+    {
+      id: uuidv6(),
+      el: 'ElFeaturePost',
+      name: 'Feature Post',
+      content: {
         title: 'Feature Post',
+      },
+      styles: {
+        column: 3,
       },
     },
   ])
 
   // Layout elements (actual placed elements)
-  const layoutElements = ref<ListItemsElementType[]>([
-    {
-      id: '1f00319b-c0d2-6850-b167-2a68088f6406',
-      data: {
-        component: ref('ElSection'),
-        title: 'Section',
-      },
-      children: [
-        {
-          id: '1f00319c-2807-66b0-b8f8-1841062a2314',
-          data: {
-            component: ref('ElListPost'),
-            title: 'List Post',
-          },
-        },
-        {
-          id: '1f00319c-189b-6aa0-b1d6-ba7e27ef62fe',
-          data: {
-            component: ref('ElListPost'),
-            title: 'List Post',
-          },
-        },
-      ],
-    },
-  ])
+  const layoutElements = ref<ListItemsElementType[]>([])
+  // {
+  //   id: '1f00319b-c0d2-6850-b167-2a68088f6406',
+  //   el: 'ElSection',
+  //   name: 'Section',
+  //   content: {
+  //     title: 'Section',
+  //   },
+  //   children: [
+  //     {
+  //       id: '1f00319c-2807-66b0-b8f8-1841062a2314',
+  //       el: 'ElListPost',
+  //       name: 'List Post',
+  //       content: {
+  //         title: 'List Post',
+  //       },
+  //     },
+  //     {
+  //       id: '1f00319c-189b-6aa0-b1d6-ba7e27ef62fe',
+  //       el: 'ElListPost',
+  //       name: 'List Post',
+  //       content: {
+  //         title: 'List Post',
+  //       },
+  //     },
+  //   ],
+  // },
 
   // Helper function for drag and drop
   const applyDrag = (arr: ListItemsElementType[], dragResult: any) => {
@@ -76,8 +95,8 @@ export const useElementStore = defineStore('element', () => {
 
     if (addedIndex !== null && itemToAdd) {
       // Ensure component is wrapped with markRaw if it exists
-      if (itemToAdd.data && itemToAdd.data.component) {
-        itemToAdd.data.component = markRaw(itemToAdd.data.component)
+      if (itemToAdd.el) {
+        itemToAdd.el = markRaw(itemToAdd.el)
       }
       result.splice(addedIndex, 0, itemToAdd)
     }
@@ -89,8 +108,9 @@ export const useElementStore = defineStore('element', () => {
   const addSection = () => {
     layoutElements.value.push({
       id: uuidv6(),
-      data: {
-        component: 'ElSection',
+      el: 'ElSection',
+      name: 'Section',
+      content: {
         title: 'Section',
       },
       children: [],
@@ -142,6 +162,31 @@ export const useElementStore = defineStore('element', () => {
     })
   }
 
+  const updateStyleElement = ({ id, styles }: { id: string; styles: any }) => {
+    // Update element at top level
+    const topLevelIndex = layoutElements.value.findIndex((item) => item.id === id)
+    if (topLevelIndex !== -1) {
+      layoutElements.value[topLevelIndex].styles = {
+        ...layoutElements.value[topLevelIndex].styles,
+        ...styles,
+      }
+      return
+    }
+
+    // Update element in children
+    layoutElements.value.forEach((section) => {
+      if (section.children) {
+        const childIndex = section.children.findIndex((item) => item.id === id)
+        if (childIndex !== -1) {
+          section.children[childIndex].styles = {
+            ...section.children[childIndex].styles,
+            ...styles,
+          }
+        }
+      }
+    })
+  }
+
   // Getters
   const getChildPayload1 = (index: number) => {
     return availableElements.value[index]
@@ -153,6 +198,17 @@ export const useElementStore = defineStore('element', () => {
 
   const saveLayout = () => {}
 
+  const getLayout = () => {
+    return JSON.stringify(layoutElements.value)
+  }
+
+  const setInitLayout = (value: string | undefined) => {
+    if (value) {
+      const valueParse = JSON.parse(value)
+      layoutElements.value = valueParse
+    }
+  }
+
   return {
     availableElements,
     layoutElements,
@@ -161,8 +217,11 @@ export const useElementStore = defineStore('element', () => {
     handleDropSection,
     deleteElement,
     updateElement,
+    updateStyleElement,
     getChildPayload1,
     getChildPayload2,
     saveLayout,
+    getLayout,
+    setInitLayout,
   }
 })

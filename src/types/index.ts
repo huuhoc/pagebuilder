@@ -1,19 +1,35 @@
 export interface ListItemsElementType {
   id: string
-  data: {
-    component: any
-    title: string
-  }
+  el: string
+  name: string
   children?: ListItemsElementType[]
-  content?: any
+  content?: {
+    title: string
+    description?: string
+    filter?: {
+      category?: string
+      exclude?: string[]
+    }
+    countItemDisplay?: number
+  }
+  styles?: {
+    hasContainer?: boolean
+    column?: number
+    width?: string
+    height?: string
+    background?: {
+      color?: string
+      image?: string
+    }
+    padding?: string
+    margin?: string
+    classModify?: string
+  }
 }
 
 export interface ConfigState {
   root: string
   appApi: string
   appCoreApi: string
-  layoutId?: string
-  tokenKey?: string
-  refreshTokenKey?: string
   isInitialized?: boolean
 }

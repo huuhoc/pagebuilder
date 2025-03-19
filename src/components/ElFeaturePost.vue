@@ -3,6 +3,7 @@ import { onMounted, ref } from 'vue'
 import type { ListItemsElementType } from '@/types'
 import { useElementStore } from '@/stores/layouts'
 import ConfigFeaturePostModal from '@/components/ConfigFeaturePostModal.vue'
+import BaseSkeleton from '@/components/common/BaseSkeleton.vue'
 
 const props = defineProps<{
   dataItem: ListItemsElementType
@@ -19,20 +20,13 @@ const isEditModalOpen = ref(false)
 
 // Post content with defaults
 const postContent = ref({
-  id: '',
   title: '',
-  description: '',
-  imageUrl: '',
-  date: new Date().toISOString().split('T')[0],
-  readingTime: 5,
 })
 
 // Initialize post content from dataItem if available
 onMounted(() => {
   if (props.dataItem.content) {
     postContent.value = { ...props.dataItem.content }
-  } else {
-    postContent.value.id = props.dataItem.id
   }
 })
 
@@ -57,37 +51,32 @@ const savePostChanges = (updatedPost: any) => {
 <template>
   <div class="w-full bg-white rounded shadow-sm p-4 mb-2 relative">
     <div class="flex space-x-1 absolute top-1 right-1 z-10">
-      <button class="p-0.5 bg-blue-500 text-white rounded-sm" @click="handleEdit">
+      <span class="drag-handle p-0.5 bg-black text-white rounded-sm cursor-move">
+        <SvgIcon name="drag" class="w-4 h-4"></SvgIcon>
+      </span>
+      <span class="p-0.5 bg-blue-500 text-white rounded-sm cursor-pointer" @click="handleEdit">
         <SvgIcon name="setting" class="w-4 h-4"></SvgIcon>
-      </button>
-      <button class="p-0.5 bg-red-500 text-white rounded-sm" @click="handleDelete">
+      </span>
+      <span class="p-0.5 bg-red-500 text-white rounded-sm cursor-pointer" @click="handleDelete">
         <SvgIcon name="delete" class="w-4 h-4"></SvgIcon>
-      </button>
+      </span>
     </div>
 
     <div class="flex justify-between items-center mb-3">
-      <h4 class="font-medium">{{ dataItem.data.title }}</h4>
+      <h4 class="font-medium">{{ dataItem.content?.title }}</h4>
     </div>
 
-    <div class="relative">
-      <!-- Featured post mock display -->
-      <div class="h-64 bg-gray-200 rounded mb-3 flex items-center justify-center">
-        <span class="text-gray-600">Featured Image</span>
-      </div>
-
-      <div class="space-y-2">
-        <h3 class="text-xl font-bold">Featured Post Title</h3>
-        <p class="text-gray-600">
-          This is a featured post with a more prominent display that highlights important content.
-          It typically includes a large image and more detailed description than regular list posts.
-        </p>
-
-        <div class="flex items-center text-sm text-gray-500 mt-1">
-          <span class="mr-4">March 17, 2025</span>
-          <span>5 min read</span>
+    <div class="space-y-2">
+      <div v-for="i in 3" :key="i" class="relative">
+        <BaseSkeleton class="w-full aspect-video" />
+        <div class="space-y-2 w-full absolute bottom-0 right-0 z-10 p-3">
+          <BaseSkeleton class="w-1/2 h-3 bg-gray-300" />
+          <div class="space-y-1">
+            <BaseSkeleton class="w-full h-2 bg-gray-300" />
+            <BaseSkeleton class="w-full h-2 bg-gray-300" />
+          </div>
+          <BaseSkeleton class="w-1/3 h-2 bg-gray-300" />
         </div>
-
-        <button class="mt-2 px-4 py-2 bg-blue-500 text-white rounded">Read More</button>
       </div>
     </div>
   </div>

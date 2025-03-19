@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { ListItemsElementType } from '@/types'
 import { useElementStore } from '@/stores/layouts'
-
 import BaseSkeleton from '@/components/common/BaseSkeleton.vue'
 
 const props = defineProps<{
@@ -33,13 +32,30 @@ const handleDelete = () => {
       <h4 class="font-medium">{{ dataItem.content?.title }}</h4>
     </div>
 
-    <div class="space-y-2">
-      <BaseSkeleton class="aspect-video w-full" />
-      <div class="flex gap-1 w-full">
-        <BaseSkeleton class="aspect-video w-full" />
-        <BaseSkeleton class="aspect-video w-full" />
-        <BaseSkeleton class="aspect-video w-full" />
-        <BaseSkeleton class="aspect-video w-full" />
+    <div class="grid grid-cols-3 gap-5">
+      <div class="row-span-3">
+        <div class="relative h-full">
+          <BaseSkeleton class="w-full h-full" />
+          <div class="space-y-2 w-full absolute bottom-0 right-0 z-10 p-3">
+            <BaseSkeleton class="w-1/2 h-3 bg-gray-300" />
+            <div class="space-y-1">
+              <BaseSkeleton class="w-full h-2 bg-gray-300" />
+              <BaseSkeleton class="w-full h-2 bg-gray-300" />
+            </div>
+            <BaseSkeleton class="w-1/3 h-2 bg-gray-300" />
+          </div>
+        </div>
+      </div>
+      <div v-for="i in 6" :key="i" class="flex items-start gap-3">
+        <BaseSkeleton class="w-32 aspect-video" />
+        <div class="space-y-2 flex-1">
+          <BaseSkeleton class="w-1/2 h-3" />
+          <div class="space-y-1">
+            <BaseSkeleton class="w-full h-2" />
+            <BaseSkeleton class="w-full h-2" />
+          </div>
+          <BaseSkeleton class="w-1/3 h-2" />
+        </div>
       </div>
     </div>
   </div>

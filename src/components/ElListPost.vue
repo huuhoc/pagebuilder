@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { ListItemsElementType } from '@/types'
 import { useElementStore } from '@/stores/layouts'
+import BaseSkeleton from '@/components/common/BaseSkeleton.vue'
 
 const props = defineProps<{
   dataItem: ListItemsElementType
@@ -16,36 +17,35 @@ const handleDelete = () => {
 <template>
   <div class="w-full bg-white rounded shadow-sm p-4 relative">
     <div class="flex space-x-1 absolute top-1 right-1 z-10">
-      <button class="p-0.5 bg-blue-500 text-white rounded-sm">
+      <span class="drag-handle p-0.5 bg-black text-white rounded-sm cursor-move">
+        <SvgIcon name="drag" class="w-4 h-4"></SvgIcon>
+      </span>
+      <span class="p-0.5 bg-blue-500 text-white rounded-sm cursor-pointer">
         <SvgIcon name="setting" class="w-4 h-4"></SvgIcon>
-      </button>
-      <button class="p-0.5 bg-red-500 text-white rounded-sm" @click="handleDelete">
+      </span>
+      <span class="p-0.5 bg-red-500 text-white rounded-sm cursor-pointer" @click="handleDelete">
         <SvgIcon name="delete" class="w-4 h-4"></SvgIcon>
-      </button>
+      </span>
     </div>
 
     <div class="flex justify-between items-center mb-3">
-      <h4 class="font-medium">{{ dataItem.data.title }}</h4>
+      <h4 class="font-medium">{{ dataItem.content?.title }}</h4>
     </div>
 
     <div class="space-y-2">
-      <!-- List of posts mock -->
       <div
-        v-for="i in 3"
+        v-for="i in 6"
         :key="i"
-        class="flex items-start border-b border-gray-100 pb-2 last:border-b-0"
+        class="flex items-start gap-3 border-b border-gray-100 pb-2 last:border-b-0"
       >
-        <div class="w-32 aspect-video bg-gray-200 flex-shrink-0 rounded mr-3"></div>
-        <div>
-          <h5 class="font-medium text-sm">Post Title {{ i }}</h5>
-          <p class="text-xs text-gray-600 line-clamp-2">
-            Short description of the post goes here, explaining what the post is about. Lorem Ipsum
-            has been the industry's standard dummy text ever since the 1500s, when an unknown
-            printer took a galley of type and scrambled it to make a type specimen book. It has
-            survived not only five centuries, but also the leap into electronic typesetting,
-            remaining essentially unchanged.
-          </p>
-          <div class="text-xs text-gray-400 mt-1">March 17, 2025</div>
+        <BaseSkeleton class="w-32 aspect-video" />
+        <div class="space-y-2 flex-1">
+          <BaseSkeleton class="w-1/2 h-3" />
+          <div class="space-y-1">
+            <BaseSkeleton class="w-full h-2" />
+            <BaseSkeleton class="w-full h-2" />
+          </div>
+          <BaseSkeleton class="w-1/3 h-2" />
         </div>
       </div>
     </div>

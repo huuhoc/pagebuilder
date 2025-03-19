@@ -1,5 +1,5 @@
 <template>
-  <Teleport to="body">
+  <Teleport to="#aqt-contain">
     <div
       v-if="isOpen"
       class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4"
@@ -87,7 +87,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineProps, defineEmits, watch } from 'vue'
+import { ref, watch } from 'vue'
 
 const props = defineProps({
   isOpen: {

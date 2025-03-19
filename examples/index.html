@@ -14,12 +14,11 @@
     <div id="pagebuilder-contain" style="width: 100%"></div>
 
     <script type="text/javascript">
-      PageBuilder.PageBuilder.mount({
+      const pagebuilder = PageBuilder.PageBuilder
+      pagebuilder.mount({
         root: 'pagebuilder-contain',
         appApi: 'https://haufo-apicms-dev.aequitas.dev',
         appCoreApi: 'https://haufo-core-dev.aequitas.dev',
-        tokenKey: 'accessToken',
-        refreshTokenKey: 'refresh_token',
       })
     </script>
   </body>

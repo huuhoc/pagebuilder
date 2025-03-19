@@ -1,27 +1,10 @@
 <script setup lang="ts">
 import { onMounted, ref, resolveComponent } from 'vue'
 import type { ListItemsElementType } from '@/types'
+import { getClassColumn } from '@/helper'
 import { Container, Draggable } from 'vue3-smooth-dnd'
 import { useElementStore } from '@/stores/layouts'
 import ConfigSectionModal from '@/components/ConfigSectionModal.vue'
-
-// import ElSection from '@/components/ElSection.vue'
-// import ElSliderPost from '@/components/ElSliderPost.vue'
-// import ElListPost from '@/components/ElListPost.vue'
-// import ElFeaturePost from '@/components/ElFeaturePost.vue'
-
-// Map component names to their actual imported components
-// const componentMap = {
-//   ElSection,
-//   ElListPost,
-//   ElSliderPost,
-//   ElFeaturePost,
-// }
-
-// Function to resolve component from string name
-// const resolveComponent = (name: string) => {
-//   return componentMap[name as keyof typeof componentMap] || null
-// }
 
 const layoutStore = useElementStore()
 
@@ -50,20 +33,13 @@ const isEditModalOpen = ref(false)
 
 // Post content with defaults
 const postContent = ref({
-  id: '',
   title: '',
-  description: '',
-  imageUrl: '',
-  date: new Date().toISOString().split('T')[0],
-  readingTime: 5,
 })
 
 // Initialize post content from dataItem if available
 onMounted(() => {
   if (props.dataItem.content) {
     postContent.value = { ...props.dataItem.content }
-  } else {
-    postContent.value.id = props.dataItem.id
   }
 })
 
@@ -83,32 +59,97 @@ const savePostChanges = (updatedPost: any) => {
 
   isEditModalOpen.value = false
 }
+
+// Track column widths
+const columnWidths = ref<Record<string, number>>({})
+const isResizing = ref(false)
+const resizingColumn = ref<string | null>(null)
+const startX = ref(0)
+const startWidth = ref(0)
+
+// Column resizing functions
+const startResize = (e: MouseEvent, columnId: string, index: number) => {
+  document.body.classList.add('resizing')
+  // Only allow resizing if not the last column
+  if (props.dataItem.children && index < props.dataItem.children.length - 1) {
+    isResizing.value = true
+    resizingColumn.value = columnId
+    startX.value = e.clientX
+    startWidth.value = columnWidths.value[columnId]
+
+    document.addEventListener('mousemove', handleResize)
+    document.addEventListener('mouseup', stopResize)
+
+    e.preventDefault()
+  }
+}
+
+const handleResize = (event: MouseEvent) => {
+  console.log('event:', event)
+}
+
+// const updateColumnClass = (columnId: string, widthPercentage: number) => {
+//   // Convert percentage to tailwind column class
+//   const colSpan = Math.round((widthPercentage / 100) * 12)
+
+//   // Update in store
+//   layoutStore.updateStyleElement({
+//     id: columnId,
+//     styles: {
+//       ...props.dataItem.children?.find((child) => child.id === columnId)?.styles,
+//       column: colSpan,
+//     },
+//   })
+// }
+
+const stopResize = () => {
+  document.body.classList.remove('resizing')
+  isResizing.value = false
+  resizingColumn.value = null
+
+  // Remove event listeners
+  document.removeEventListener('mousemove', handleResize)
+  document.removeEventListener('mouseup', stopResize)
+}
 </script>
 
 <template>
   <div class="border border-gray-300 border-opacity-60 rounded p-5 relative">
     <div class="flex space-x-1 absolute top-1 left-1 z-10">
-      <button class="drag-handle p-0.5 bg-black text-white rounded-sm cursor-move">
+      <span class="drag-handle p-0.5 bg-black text-white rounded-sm cursor-move">
         <SvgIcon name="drag" class="w-4 h-4"></SvgIcon>
-      </button>
-      <button class="p-0.5 bg-blue-500 text-white rounded-sm" @click="handleConfig">
+      </span>
+      <span class="p-0.5 bg-blue-500 text-white rounded-sm cursor-pointer" @click="handleConfig">
         <SvgIcon name="setting" class="w-4 h-4"></SvgIcon>
-      </button>
-      <button class="p-0.5 bg-red-500 text-white rounded-sm" @click="handleDelete">
+      </span>
+      <span class="p-0.5 bg-red-500 text-white rounded-sm cursor-pointer" @click="handleDelete">
         <SvgIcon name="delete" class="w-4 h-4"></SvgIcon>
-      </button>
+      </span>
     </div>
     <div class="container mx-auto px-10">
       <Container
         group-name="list-elements"
         orientation="horizontal"
+        drag-handle-selector=".drag-handle"
         behaviour="contain"
         :get-child-payload="getChildPayload2"
         @drop="onDropLayout($event)"
         class="!flex gap-3"
+        ref="refContainer"
       >
-        <Draggable v-for="item in dataItem.children" :key="item.id" class="flex">
-          <component :is="resolveComponent(item.data.component)" :dataItem="item"></component>
+        <Draggable
+          v-for="(item, index) in dataItem.children"
+          :key="item.id"
+          :class="`relative flex ${getClassColumn(item.styles?.column)}`"
+        >
+          <component :is="resolveComponent(item.el)" :dataItem="item"></component>
+          <div
+            v-if="dataItem.children && index < dataItem.children.length - 1"
+            class="flex items-center justify-center absolute top-0 bottom-0 -right-1.5 w-1.5 translate-x-1/2 cursor-col-resize bg-transparent hover:bg-blue-200 hover:bg-opacity-30 z-10"
+            @mousedown="(e) => startResize(e, item.id, index)"
+          >
+            <span class="bg-black bg-opacity-50 w-0.5 h-8"></span>
+          </div>
         </Draggable>
       </Container>
     </div>
@@ -122,3 +163,10 @@ const savePostChanges = (updatedPost: any) => {
     @save="savePostChanges"
   />
 </template>
+
+<style>
+body.resizing {
+  cursor: col-resize !important;
+  user-select: none;
+}
+</style>
