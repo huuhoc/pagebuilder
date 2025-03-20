@@ -6,7 +6,7 @@
     >
       <div class="bg-white rounded shadow-xl w-full max-w-2xl overflow-hidden">
         <div class="flex justify-between items-center px-4 py-2 border-b">
-          <h3 class="text-base font-medium">Cài đặt Section</h3>
+          <h3 class="text-base font-medium">Cài đặt {{ postData?.name }}</h3>
           <span @click="closeModal" class="text-gray-500 hover:text-gray-700 cursor-pointer">
             <SvgIcon name="close" class="w-3 h-3" />
           </span>
@@ -47,24 +47,19 @@
 
 <script setup lang="ts">
 import { ref, watch } from 'vue'
+import type { ListItemsElementType } from '@/types'
+import { useSettingsElementStore } from '@/stores/settingsElementStore'
 
-const props = defineProps({
-  isOpen: {
-    type: Boolean,
-    required: true,
-  },
-  postData: {
-    type: Object,
-    required: true,
-  },
-})
+const settingsElementStore = useSettingsElementStore()
 
-const emit = defineEmits(['close', 'save'])
+const props = defineProps<{
+  isOpen: Boolean
+  postData: ListItemsElementType | undefined
+}>()
 
 // Form data with defaults
 const formData = ref({
   title: '',
-  description: '',
 })
 
 // Update form data when post data changes
@@ -73,8 +68,7 @@ watch(
   (newVal) => {
     if (newVal) {
       formData.value = {
-        title: newVal.title || '',
-        description: newVal.description || '',
+        title: newVal.name || '',
       }
     }
   },
@@ -82,14 +76,14 @@ watch(
 )
 
 const closeModal = () => {
-  emit('close')
+  settingsElementStore.setShowSettingsElement(false)
 }
 
 const saveChanges = () => {
-  emit('save', {
-    ...formData.value,
-    id: props.postData.id,
-  })
+  // layoutStore.updateElement({
+  //   id: props.dataItem.id,
+  //   content: updatedPost,
+  // })
   closeModal()
 }
 </script>

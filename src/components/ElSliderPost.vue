@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { ListItemsElementType } from '@/types'
 import { useElementStore } from '@/stores/layouts'
+import { useSettingsElementStore } from '@/stores/settingsElementStore'
 
 import BaseSkeleton from '@/components/common/BaseSkeleton.vue'
 
@@ -9,7 +10,12 @@ const props = defineProps<{
 }>()
 
 const layoutStore = useElementStore()
+const settingsElementStore = useSettingsElementStore()
 
+const handleConfig = () => {
+  settingsElementStore.setElementSelected(props.dataItem)
+  settingsElementStore.setShowSettingsElement(true)
+}
 const handleDelete = () => {
   layoutStore.deleteElement(props.dataItem.id)
 }
@@ -21,7 +27,7 @@ const handleDelete = () => {
       <span class="drag-handle p-0.5 bg-black text-white rounded-sm cursor-move">
         <SvgIcon name="drag" class="w-4 h-4"></SvgIcon>
       </span>
-      <span class="p-0.5 bg-blue-500 text-white rounded-sm cursor-pointer">
+      <span class="p-0.5 bg-blue-500 text-white rounded-sm cursor-pointer" @click="handleConfig">
         <SvgIcon name="setting" class="w-4 h-4"></SvgIcon>
       </span>
       <span class="p-0.5 bg-red-500 text-white rounded-sm cursor-pointer" @click="handleDelete">

@@ -2,6 +2,9 @@
 import { ref, resolveComponent, onMounted, onBeforeUnmount } from 'vue'
 import { Container, Draggable } from 'vue3-smooth-dnd'
 import { useElementStore } from '@/stores/layouts'
+import { useSettingsElementStore } from '@/stores/settingsElementStore'
+
+import ConfigModal from '@/components/ConfigModal.vue'
 
 // Import images
 import ElListPost from '@/assets/ElListPost.png'
@@ -18,6 +21,7 @@ const mapImages: Record<string, string> = {
 
 // Use the element store
 const layoutStore = useElementStore()
+const settingsElementStore = useSettingsElementStore()
 
 const fullscreenElement = ref()
 const isFullScreen = ref(false)
@@ -148,4 +152,8 @@ onBeforeUnmount(() => {
       </div>
     </div>
   </div>
+  <ConfigModal
+    :is-open="settingsElementStore.showSettingsElement"
+    :post-data="settingsElementStore.elementSelected"
+  />
 </template>

@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import { onMounted, ref, resolveComponent } from 'vue'
+import { ref, resolveComponent } from 'vue'
 import type { ListItemsElementType } from '@/types'
 import { getClassColumn } from '@/helper'
 import { Container, Draggable } from 'vue3-smooth-dnd'
 import { useElementStore } from '@/stores/layouts'
-import ConfigSectionModal from '@/components/ConfigSectionModal.vue'
+import { useSettingsElementStore } from '@/stores/settingsElementStore'
 
 const layoutStore = useElementStore()
+const settingsElementStore = useSettingsElementStore()
 
 const props = defineProps<{
   dataItem: ListItemsElementType
@@ -28,36 +29,9 @@ const handleDelete = () => {
   layoutStore.deleteElement(props.dataItem.id)
 }
 
-// Modal state
-const isEditModalOpen = ref(false)
-
-// Post content with defaults
-const postContent = ref({
-  title: '',
-})
-
-// Initialize post content from dataItem if available
-onMounted(() => {
-  if (props.dataItem.content) {
-    postContent.value = { ...props.dataItem.content }
-  }
-})
-
 const handleConfig = () => {
-  isEditModalOpen.value = true
-}
-
-const savePostChanges = (updatedPost: any) => {
-  // Update local state
-  postContent.value = updatedPost
-
-  // Update in store
-  layoutStore.updateElement({
-    id: props.dataItem.id,
-    content: updatedPost,
-  })
-
-  isEditModalOpen.value = false
+  settingsElementStore.setElementSelected(props.dataItem)
+  settingsElementStore.setShowSettingsElement(true)
 }
 
 // Track column widths
@@ -154,14 +128,6 @@ const stopResize = () => {
       </Container>
     </div>
   </div>
-
-  <!-- Config Modal -->
-  <ConfigSectionModal
-    :is-open="isEditModalOpen"
-    :post-data="postContent"
-    @close="isEditModalOpen = false"
-    @save="savePostChanges"
-  />
 </template>
 
 <style>
