@@ -99,8 +99,8 @@ onBeforeUnmount(() => {
             class="aqt-sidebar__element"
           >
             <div class="cursor-pointer flex items-center gap-2">
-              <img :src="mapImages[item.el]" :alt="item.content?.title" />
-              <span>{{ item.content?.title }}</span>
+              <img :src="mapImages[item.el]" :alt="item.name" />
+              <span>{{ item.name }}</span>
             </div>
           </Draggable>
         </Container>
@@ -153,7 +153,7 @@ onBeforeUnmount(() => {
     </div>
   </div>
   <ConfigModal
+    v-if="settingsElementStore.showSettingsElement"
     :is-open="settingsElementStore.showSettingsElement"
-    :post-data="settingsElementStore.elementSelected"
   />
 </template>

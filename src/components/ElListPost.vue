@@ -37,7 +37,7 @@ const handleDelete = () => {
     </div>
 
     <div class="flex justify-between items-center mb-3">
-      <h4 class="font-medium">{{ dataItem.content?.title }}</h4>
+      <h4 class="font-medium">{{ dataItem.content?.title?.value }}</h4>
     </div>
 
     <div class="space-y-2">

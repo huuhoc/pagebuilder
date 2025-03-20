@@ -8,9 +8,9 @@ export const useSettingsElementStore = defineStore('settingsElement', () => {
     showSettingsElement.value = status
   }
 
-  const elementSelected = ref<ListItemsElementType>()
+  const elementSelected = ref<ListItemsElementType | null>(null)
 
-  const setElementSelected = (element: ListItemsElementType) => {
+  const setElementSelected = (element: ListItemsElementType | null) => {
     elementSelected.value = element
   }
 

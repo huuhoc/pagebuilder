@@ -11,10 +11,18 @@ export const useElementStore = defineStore('element', () => {
       el: 'ElSliderPost',
       name: 'Slider Post',
       content: {
-        title: 'Slider Post',
+        title: {
+          type: 'text',
+          label: 'Tiêu đề',
+          value: 'Slider Post',
+        },
       },
       styles: {
-        column: 6,
+        column: {
+          type: 'number',
+          label: 'Độ rộng',
+          value: 6,
+        },
       },
     },
     {
@@ -22,10 +30,18 @@ export const useElementStore = defineStore('element', () => {
       el: 'ElListPost',
       name: 'List Post',
       content: {
-        title: 'List Post',
+        title: {
+          type: 'text',
+          label: 'Tiêu đề',
+          value: 'List Post',
+        },
       },
       styles: {
-        column: 3,
+        column: {
+          type: 'number',
+          label: 'Độ rộng',
+          value: 3,
+        },
       },
     },
     {
@@ -33,10 +49,18 @@ export const useElementStore = defineStore('element', () => {
       el: 'ElListPostCategory',
       name: 'List Post Category',
       content: {
-        title: 'List Post Category',
+        title: {
+          type: 'text',
+          label: 'Tiêu đề',
+          value: 'List Post Category',
+        },
       },
       styles: {
-        column: 12,
+        column: {
+          type: 'number',
+          label: 'Độ rộng',
+          value: 12,
+        },
       },
     },
     {
@@ -44,42 +68,24 @@ export const useElementStore = defineStore('element', () => {
       el: 'ElFeaturePost',
       name: 'Feature Post',
       content: {
-        title: 'Feature Post',
+        title: {
+          type: 'text',
+          label: 'Tiêu đề',
+          value: 'Feature Post',
+        },
       },
       styles: {
-        column: 3,
+        column: {
+          type: 'number',
+          label: 'Độ rộng',
+          value: 3,
+        },
       },
     },
   ])
 
   // Layout elements (actual placed elements)
   const layoutElements = ref<ListItemsElementType[]>([])
-  // {
-  //   id: '1f00319b-c0d2-6850-b167-2a68088f6406',
-  //   el: 'ElSection',
-  //   name: 'Section',
-  //   content: {
-  //     title: 'Section',
-  //   },
-  //   children: [
-  //     {
-  //       id: '1f00319c-2807-66b0-b8f8-1841062a2314',
-  //       el: 'ElListPost',
-  //       name: 'List Post',
-  //       content: {
-  //         title: 'List Post',
-  //       },
-  //     },
-  //     {
-  //       id: '1f00319c-189b-6aa0-b1d6-ba7e27ef62fe',
-  //       el: 'ElListPost',
-  //       name: 'List Post',
-  //       content: {
-  //         title: 'List Post',
-  //       },
-  //     },
-  //   ],
-  // },
 
   // Helper function for drag and drop
   const applyDrag = (arr: ListItemsElementType[], dragResult: any) => {
@@ -111,7 +117,28 @@ export const useElementStore = defineStore('element', () => {
       el: 'ElSection',
       name: 'Section',
       content: {
-        title: 'Section',
+        title: {
+          type: 'text',
+          label: 'Tiêu đề',
+          value: 'Section',
+        },
+      },
+      styles: {
+        hasContainer: {
+          type: 'boolean',
+          label: 'Container',
+          value: true,
+        },
+        'background-color': {
+          type: 'text',
+          label: 'Màu nền',
+          value: '',
+        },
+        'background-image': {
+          type: 'text',
+          label: 'Ảnh nền',
+          value: '',
+        },
       },
       children: [],
     })
@@ -143,32 +170,13 @@ export const useElementStore = defineStore('element', () => {
     })
   }
 
-  const updateElement = ({ id, content }: { id: string; content: any }) => {
+  const updateElement = ({ id, content }: { id?: string; content: any }) => {
     // Update element at top level
     const topLevelIndex = layoutElements.value.findIndex((item) => item.id === id)
     if (topLevelIndex !== -1) {
-      layoutElements.value[topLevelIndex].content = content
-      return
-    }
-
-    // Update element in children
-    layoutElements.value.forEach((section) => {
-      if (section.children) {
-        const childIndex = section.children.findIndex((item) => item.id === id)
-        if (childIndex !== -1) {
-          section.children[childIndex].content = content
-        }
-      }
-    })
-  }
-
-  const updateStyleElement = ({ id, styles }: { id: string; styles: any }) => {
-    // Update element at top level
-    const topLevelIndex = layoutElements.value.findIndex((item) => item.id === id)
-    if (topLevelIndex !== -1) {
-      layoutElements.value[topLevelIndex].styles = {
-        ...layoutElements.value[topLevelIndex].styles,
-        ...styles,
+      layoutElements.value[topLevelIndex] = {
+        ...layoutElements.value[topLevelIndex],
+        ...content,
       }
       return
     }
@@ -178,9 +186,9 @@ export const useElementStore = defineStore('element', () => {
       if (section.children) {
         const childIndex = section.children.findIndex((item) => item.id === id)
         if (childIndex !== -1) {
-          section.children[childIndex].styles = {
-            ...section.children[childIndex].styles,
-            ...styles,
+          section.children[childIndex] = {
+            ...section.children[childIndex],
+            ...content,
           }
         }
       }
@@ -195,8 +203,6 @@ export const useElementStore = defineStore('element', () => {
   const getChildPayload2 = (index: number) => {
     return layoutElements.value[index]
   }
-
-  const saveLayout = () => {}
 
   const getLayout = () => {
     return JSON.stringify(layoutElements.value)
@@ -217,10 +223,8 @@ export const useElementStore = defineStore('element', () => {
     handleDropSection,
     deleteElement,
     updateElement,
-    updateStyleElement,
     getChildPayload1,
     getChildPayload2,
-    saveLayout,
     getLayout,
     setInitLayout,
   }
