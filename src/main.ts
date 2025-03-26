@@ -7,12 +7,6 @@ import type { ConfigState } from '../src/types/index'
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import App from './App.vue'
-import SvgIcon from '@/components/SvgIcon.vue'
-import ElSection from '@/components/ElSection.vue'
-import ElSliderPost from '@/components/ElSliderPost.vue'
-import ElListPost from '@/components/ElListPost.vue'
-import ElListPostCategory from '@/components/ElListPostCategory.vue'
-import ElFeaturePost from '@/components/ElFeaturePost.vue'
 
 const app = createApp(App)
 
@@ -29,11 +23,17 @@ const config: ConfigState = {
 const configStore = useConfigStore(pinia)
 // configStore.initialize(config)
 
-app.component('SvgIcon', SvgIcon)
-app.component('ElSection', ElSection)
-app.component('ElSliderPost', ElSliderPost)
-app.component('ElListPost', ElListPost)
-app.component('ElListPostCategory', ElListPostCategory)
-app.component('ElFeaturePost', ElFeaturePost)
+// Dynamically import and register all components from a specific folder
+const components = import.meta.glob('./components/*.vue', { eager: true })
+Object.entries(components).forEach(([path, module]) => {
+  const componentName = path.replace('./components/', '').replace('.vue', '')
+  app.component(componentName, (module as { default: any }).default)
+})
+
+const componentsCommon = import.meta.glob('./components/common/*.vue', { eager: true })
+Object.entries(componentsCommon).forEach(([path, module]) => {
+  const componentName = path.replace('./components/common/', '').replace('.vue', '')
+  app.component(componentName, (module as { default: any }).default)
+})
 
 app.mount('#app-aqt')

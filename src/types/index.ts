@@ -1,7 +1,7 @@
 export interface FieldType {
   type: string
   label?: string
-  value: string
+  value: any
 }
 
 export interface ListItemsElementType {

@@ -6,12 +6,10 @@ import { useElementStore } from '../src/stores/layouts'
 import type { ConfigState } from '../src/types/index'
 
 import App from '../src/App.vue'
-import SvgIcon from '../src/components/SvgIcon.vue'
-import ElSection from '../src/components/ElSection.vue'
-import ElSliderPost from '../src/components/ElSliderPost.vue'
-import ElListPost from '../src/components/ElListPost.vue'
-import ElListPostCategory from '../src/components/ElListPostCategory.vue'
-import ElFeaturePost from '../src/components/ElFeaturePost.vue'
+
+// Dynamically import and register all components from a specific folder
+const components = import.meta.glob('../src/components/*.vue', { eager: true })
+const componentsCommon = import.meta.glob('../src/components/common/*.vue', { eager: true })
 
 import '../src/assets/index.css'
 export class PageBuilder {
@@ -53,13 +51,15 @@ export class PageBuilder {
 
         this.storeLayout = useElementStore(pinia)
 
-        // Set component global
-        this.app.component('SvgIcon', SvgIcon)
-        this.app.component('ElSection', ElSection)
-        this.app.component('ElSliderPost', ElSliderPost)
-        this.app.component('ElListPost', ElListPost)
-        this.app.component('ElListPostCategory', ElListPostCategory)
-        this.app.component('ElFeaturePost', ElFeaturePost)
+        Object.entries(components).forEach(([path, module]) => {
+          const componentName = path.replace('../src/components/', '').replace('.vue', '')
+          this.app?.component(componentName, (module as { default: any }).default)
+        })
+
+        Object.entries(componentsCommon).forEach(([path, module]) => {
+          const componentName = path.replace('../src/components/common/', '').replace('.vue', '')
+          this.app?.component(componentName, (module as { default: any }).default)
+        })
 
         // Mount Vue app to the root element
         this.app.mount(rootElement)

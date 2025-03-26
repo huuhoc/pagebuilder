@@ -1,18 +1,8 @@
 <template>
   <div class="flex items-center">
-    <input
-      type="checkbox"
-      :id="id"
-      :checked="modelValue"
-      @change="updateValue"
-      class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 cursor-pointer"
-      :disabled="disabled"
-    />
-    <label
-      :for="id"
-      class="ml-2 block text-sm font-medium"
-      :class="[disabled ? 'text-gray-400' : 'text-gray-700']"
-    >
+    <input type="checkbox" :id="id" :checked="modelValue" @change="updateValue"
+      class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 cursor-pointer" :disabled="disabled" />
+    <label :for="id" class="ml-2 block text-sm font-medium" :class="[disabled ? 'text-gray-400' : 'text-gray-700']">
       <slot>{{ label }}</slot>
     </label>
   </div>
@@ -25,6 +15,7 @@ defineProps({
   modelValue: {
     type: Boolean || String,
     default: false,
+    required: true
   },
   label: {
     type: String,

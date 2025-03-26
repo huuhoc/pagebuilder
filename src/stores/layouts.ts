@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { v6 as uuidv6 } from 'uuid'
-import { ref, markRaw } from 'vue'
+import { ref } from 'vue'
 import type { ListItemsElementType } from '@/types'
 
 export const useElementStore = defineStore('element', () => {
@@ -12,14 +12,14 @@ export const useElementStore = defineStore('element', () => {
       name: 'Slider Post',
       content: {
         title: {
-          type: 'text',
+          type: 'InputText',
           label: 'Tiêu đề',
           value: 'Slider Post',
         },
       },
       styles: {
         column: {
-          type: 'number',
+          type: 'BaseWidth',
           label: 'Độ rộng',
           value: 6,
         },
@@ -31,14 +31,14 @@ export const useElementStore = defineStore('element', () => {
       name: 'List Post',
       content: {
         title: {
-          type: 'text',
+          type: 'InputText',
           label: 'Tiêu đề',
           value: 'List Post',
         },
       },
       styles: {
         column: {
-          type: 'number',
+          type: 'BaseWidth',
           label: 'Độ rộng',
           value: 3,
         },
@@ -50,14 +50,14 @@ export const useElementStore = defineStore('element', () => {
       name: 'List Post Category',
       content: {
         title: {
-          type: 'text',
+          type: 'InputText',
           label: 'Tiêu đề',
           value: 'List Post Category',
         },
       },
       styles: {
         column: {
-          type: 'number',
+          type: 'BaseWidth',
           label: 'Độ rộng',
           value: 12,
         },
@@ -69,14 +69,14 @@ export const useElementStore = defineStore('element', () => {
       name: 'Feature Post',
       content: {
         title: {
-          type: 'text',
+          type: 'InputText',
           label: 'Tiêu đề',
           value: 'Feature Post',
         },
       },
       styles: {
         column: {
-          type: 'number',
+          type: 'BaseWidth',
           label: 'Độ rộng',
           value: 3,
         },
@@ -93,7 +93,8 @@ export const useElementStore = defineStore('element', () => {
     if (removedIndex === null && addedIndex === null) return arr
 
     const result = [...arr]
-    let itemToAdd = { ...payload, id: uuidv6() } // Set unique ID
+    const mapPayload = JSON.parse(JSON.stringify(payload)) // fix issue Deep copy
+    let itemToAdd = { ...mapPayload, id: uuidv6() } // Set unique ID
 
     if (removedIndex !== null) {
       itemToAdd = result.splice(removedIndex, 1)[0]
@@ -102,7 +103,7 @@ export const useElementStore = defineStore('element', () => {
     if (addedIndex !== null && itemToAdd) {
       // Ensure component is wrapped with markRaw if it exists
       if (itemToAdd.el) {
-        itemToAdd.el = markRaw(itemToAdd.el)
+        itemToAdd.el = itemToAdd.el
       }
       result.splice(addedIndex, 0, itemToAdd)
     }
@@ -118,24 +119,24 @@ export const useElementStore = defineStore('element', () => {
       name: 'Section',
       content: {
         title: {
-          type: 'text',
+          type: 'InputText',
           label: 'Tiêu đề',
           value: 'Section',
         },
       },
       styles: {
         hasContainer: {
-          type: 'boolean',
+          type: 'CheckBox',
           label: 'Container',
           value: true,
         },
         'background-color': {
-          type: 'text',
+          type: 'InputText',
           label: 'Màu nền',
           value: '',
         },
         'background-image': {
-          type: 'text',
+          type: 'InputText',
           label: 'Ảnh nền',
           value: '',
         },
@@ -149,6 +150,7 @@ export const useElementStore = defineStore('element', () => {
   }
 
   const handleDropSection = (value: any) => {
+    console.log('value: ', value)
     const index = layoutElements.value.findIndex((item) => item.id === value.sectionId)
     if (index !== -1 && layoutElements.value[index].children) {
       layoutElements.value[index].children = applyDrag(
@@ -176,7 +178,8 @@ export const useElementStore = defineStore('element', () => {
     if (topLevelIndex !== -1) {
       layoutElements.value[topLevelIndex] = {
         ...layoutElements.value[topLevelIndex],
-        ...content,
+        content: content.content,
+        styles: content.styles,
       }
       return
     }
@@ -186,9 +189,11 @@ export const useElementStore = defineStore('element', () => {
       if (section.children) {
         const childIndex = section.children.findIndex((item) => item.id === id)
         if (childIndex !== -1) {
+          console.log('childIndex: ', childIndex)
           section.children[childIndex] = {
             ...section.children[childIndex],
-            ...content,
+            content: content.content,
+            styles: content.styles,
           }
         }
       }
@@ -197,7 +202,7 @@ export const useElementStore = defineStore('element', () => {
 
   // Getters
   const getChildPayload1 = (index: number) => {
-    return availableElements.value[index]
+    return { ...availableElements.value[index] }
   }
 
   const getChildPayload2 = (index: number) => {
