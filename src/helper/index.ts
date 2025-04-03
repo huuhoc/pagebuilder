@@ -28,3 +28,12 @@ export const getClassColumn = (column: number | undefined) => {
       return 'w-full'
   }
 }
+
+export const deletePayloadNull = (payload: any) => {
+  for (const [key, value] of Object.entries(payload)) {
+    if (value === null || value === undefined || value === 0) {
+      delete payload[key]
+    }
+  }
+  return payload
+}

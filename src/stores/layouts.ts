@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { defineStore } from 'pinia'
 import { v6 as uuidv6 } from 'uuid'
 import { ref } from 'vue'
@@ -17,21 +18,20 @@ export const useElementStore = defineStore('element', () => {
           value: 'Slider Post',
         },
         category: {
-          type: 'InputText',
+          type: 'SelectCategory',
           label: 'Danh mục',
-          value: null,
           desc: 'Mặc định không chọn danh mục bài viết sẽ lấy tất cả',
+          value_vi: '',
         },
         isFeature: {
           type: 'SwitchBox',
           label: 'Bài viết nổi bật',
-          value: null,
         },
         numberPost: {
           type: 'InputNumber',
           label: 'Hiện thị số bài viết',
-          value: 5,
           value_vi: 5,
+          value_en: 5,
         },
       },
       styles: {
@@ -52,6 +52,22 @@ export const useElementStore = defineStore('element', () => {
           label: 'Tiêu đề',
           value: 'List Post',
         },
+        category: {
+          type: 'SelectCategory',
+          label: 'Danh mục',
+          desc: 'Mặc định không chọn danh mục bài viết sẽ lấy tất cả',
+          value_vi: '',
+        },
+        isFeature: {
+          type: 'SwitchBox',
+          label: 'Bài viết nổi bật',
+        },
+        numberPost: {
+          type: 'InputNumber',
+          label: 'Hiện thị số bài viết',
+          value_vi: 5,
+          value_en: 5,
+        },
       },
       styles: {
         column: {
@@ -70,6 +86,18 @@ export const useElementStore = defineStore('element', () => {
           type: 'InputText',
           label: 'Tiêu đề',
           value: 'List Post Category',
+        },
+        category: {
+          type: 'SelectCategory',
+          label: 'Danh mục',
+          desc: 'Mặc định không chọn danh mục bài viết sẽ lấy tất cả',
+          value_vi: '',
+        },
+        numberPost: {
+          type: 'InputNumber',
+          label: 'Hiện thị số bài viết',
+          value_vi: 7,
+          value_en: 7,
         },
       },
       styles: {
@@ -90,12 +118,59 @@ export const useElementStore = defineStore('element', () => {
           label: 'Tiêu đề',
           value: 'Feature Post',
         },
+        category: {
+          type: 'SelectCategory',
+          label: 'Danh mục',
+          desc: 'Mặc định không chọn danh mục bài viết sẽ lấy tất cả',
+          value_vi: '',
+        },
+        isFeature: {
+          type: 'SwitchBox',
+          label: 'Bài viết nổi bật',
+        },
+        numberPost: {
+          type: 'InputNumber',
+          label: 'Hiện thị số bài viết',
+          value_vi: 3,
+          value_en: 3,
+        },
       },
       styles: {
         column: {
           type: 'BaseWidth',
           label: 'Độ rộng',
           value: 3,
+        },
+      },
+    },
+    {
+      id: uuidv6(),
+      el: 'ElListLink',
+      name: 'List Link',
+      content: {
+        title: {
+          type: 'InputText',
+          label: 'Tiêu đề',
+          value: 'List Link',
+        },
+        numberPost: {
+          type: 'InputNumber',
+          label: 'Hiện thị số link liên kết',
+          value_vi: 8,
+          value_en: 8,
+        },
+        numberColumn: {
+          type: 'InputNumber',
+          label: 'Hiện thị số cột',
+          value_vi: 4,
+          value_en: 4,
+        },
+      },
+      styles: {
+        column: {
+          type: 'BaseWidth',
+          label: 'Độ rộng',
+          value: 12,
         },
       },
     },
@@ -167,7 +242,6 @@ export const useElementStore = defineStore('element', () => {
   }
 
   const handleDropSection = (value: any) => {
-    console.log('value: ', value)
     const index = layoutElements.value.findIndex((item) => item.id === value.sectionId)
     if (index !== -1 && layoutElements.value[index].children) {
       layoutElements.value[index].children = applyDrag(

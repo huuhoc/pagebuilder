@@ -2,8 +2,8 @@ export interface FieldType {
   type: string
   label?: string
   desc?: string
-  value: any
-  [key: `value_${string}`]: any
+  value?: string | number | boolean
+  [key: `value_${string}`]: string | number
 }
 
 export interface ListItemsElementType {
@@ -47,4 +47,29 @@ export interface ConfigState {
   appCoreApi: string
   isInitialized?: boolean
   languages?: string[]
+}
+
+export interface TreeNodeType {
+  id: string
+  label?: string
+  slug?: string
+  children?: TreeNodeType[]
+}
+export interface FilterCategory {
+  IsHomepage?: boolean
+  IsFeatured?: boolean
+  ParentId?: string
+  Sorting?: string
+  SkipCount?: number
+  MaxResultCount?: number
+  Language?: string
+}
+
+export interface CategoryType {
+  id: string
+  name: string
+  slug: string
+  englishName?: string
+  englishSlug?: string
+  parentId: string | null
 }

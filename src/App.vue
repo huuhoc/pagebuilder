@@ -3,6 +3,9 @@ import { ref, resolveComponent, onMounted, onBeforeUnmount } from 'vue'
 import { Container, Draggable } from 'vue3-smooth-dnd'
 import { useElementStore } from '@/stores/layouts'
 import { useSettingsElementStore } from '@/stores/settingsElementStore'
+import { useCategoryStore } from '@/stores/categoryStore'
+import { getList } from '@/services/categories'
+import { useConfigStore } from '@/stores/configStore'
 
 import ConfigModal from '@/components/ConfigModal.vue'
 
@@ -11,17 +14,21 @@ import ElListPost from '@/assets/ElListPost.png'
 import ElListPostCategory from '@/assets/ElListPostCategory.png'
 import ElSliderPost from '@/assets/ElSliderPost.png'
 import ElFeaturePost from '@/assets/ElFeaturePost.png'
+import ElListLink from '@/assets/ElListLink.png'
 
 const mapImages: Record<string, string> = {
   ElListPost,
   ElListPostCategory,
   ElSliderPost,
   ElFeaturePost,
+  ElListLink,
 }
 
 // Use the element store
 const layoutStore = useElementStore()
 const settingsElementStore = useSettingsElementStore()
+const categoryStore = useCategoryStore()
+const configStore = useConfigStore()
 
 const fullscreenElement = ref()
 const isFullScreen = ref(false)
@@ -68,11 +75,13 @@ const onFullScreenChange = () => {
     !!document.msFullscreenElement
 }
 
-onMounted(() => {
+onMounted(async () => {
   document.addEventListener('fullscreenchange', onFullScreenChange)
   document.addEventListener('webkitfullscreenchange', onFullScreenChange)
   document.addEventListener('mozfullscreenchange', onFullScreenChange)
   document.addEventListener('MSFullscreenChange', onFullScreenChange)
+  const listCate = await getList(configStore.appApi, { SkipCount: 0, MaxResultCount: 9999 })
+  categoryStore.setCategories(listCate)
 })
 
 onBeforeUnmount(() => {
