@@ -33,6 +33,10 @@ defineProps({
         type: Boolean,
         default: false,
     },
+    help: {
+        type: String,
+        default: ''
+    }
 })
 
 const selectValue = (value: number) => {

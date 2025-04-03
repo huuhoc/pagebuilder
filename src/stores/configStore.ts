@@ -7,6 +7,7 @@ export const useConfigStore = defineStore('config', {
     appApi: 'https://haufo-apicms-dev.aequitas.dev',
     appCoreApi: 'https://haufo-core-dev.aequitas.dev',
     isInitialized: false,
+    languages: ['vi', 'en', 'fr'],
   }),
 
   actions: {
@@ -15,7 +16,7 @@ export const useConfigStore = defineStore('config', {
       this.appApi = config.appApi
       this.appCoreApi = config.appCoreApi
       this.isInitialized = true
-
+      this.languages = config?.languages || ['vi']
       console.log('Config store initialized with:', this.$state)
     },
   },

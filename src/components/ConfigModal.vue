@@ -23,10 +23,22 @@
             </div>
             <div class="border border-muted p-3">
               <div v-if="tabActive === 'content' && formData?.content">
-                <div v-for="itemContent in Object.keys(formData?.content)" :key="`itemContent-${itemContent}`"
-                  class="space-y-3">
-                  <component :is="resolveComponent(formData.content[itemContent].type)"
-                    v-model="formData.content[itemContent].value" :label="formData.content[itemContent].label" />
+                <div class="tab-languages flex items-center gap-2 px-3 -mb-px">
+                  <span v-for="flag in languages" class="cursor-pointer px-2 py-1 border rounded-t-sm"
+                    :class="langCurrent === flag ? 'border-primary border-b-white' : 'border-muted border-b-primary rounded-b-sm'"
+                    @click="() => langCurrent = flag">
+                    <SvgIcon :name="`flag-${flag}`" class="w-4 h-4" />
+                  </span>
+                </div>
+                <div class="border-t border-primary py-3">
+                  <div v-for="lang in languages" v-show="langCurrent === lang" class="space-y-3">
+                    <div v-for="itemContent in Object.keys(formData?.content)" :key="`itemContent-${itemContent}`"
+                      class="space-y-3">
+                      <component :is="resolveComponent(formData.content[itemContent].type)"
+                        v-model="formData.content[itemContent][`value_${lang}`]"
+                        :label="formData.content[itemContent].label" :help="formData.content[itemContent].desc" />
+                    </div>
+                  </div>
                 </div>
               </div>
               <div v-if="tabActive === 'styles' && formData?.styles">
@@ -61,11 +73,15 @@ import { reactive, ref, resolveComponent } from 'vue'
 import type { FieldType } from '@/types'
 import { useElementStore } from '@/stores/layouts'
 import { useSettingsElementStore } from '@/stores/settingsElementStore'
+import { useConfigStore } from '@/stores/configStore'
 
 const layoutStore = useElementStore()
 const settingsElementStore = useSettingsElementStore()
+const configStore = useConfigStore()
 
 const elementSelected = JSON.parse(JSON.stringify(settingsElementStore.elementSelected))
+
+const languages = configStore.$state.languages
 
 defineProps<{
   isOpen: Boolean
@@ -85,6 +101,8 @@ const formData = reactive<{
 })
 
 const tabActive = ref('content')
+
+const langCurrent = ref('vi')
 
 const closeModal = () => {
   settingsElementStore.setShowSettingsElement(false)

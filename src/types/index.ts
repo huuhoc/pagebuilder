@@ -1,7 +1,9 @@
 export interface FieldType {
   type: string
   label?: string
+  desc?: string
   value: any
+  [key: `value_${string}`]: any
 }
 
 export interface ListItemsElementType {
@@ -44,4 +46,5 @@ export interface ConfigState {
   appApi: string
   appCoreApi: string
   isInitialized?: boolean
+  languages?: string[]
 }

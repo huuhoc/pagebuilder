@@ -16,6 +16,23 @@ export const useElementStore = defineStore('element', () => {
           label: 'Tiêu đề',
           value: 'Slider Post',
         },
+        category: {
+          type: 'InputText',
+          label: 'Danh mục',
+          value: null,
+          desc: 'Mặc định không chọn danh mục bài viết sẽ lấy tất cả',
+        },
+        isFeature: {
+          type: 'SwitchBox',
+          label: 'Bài viết nổi bật',
+          value: null,
+        },
+        numberPost: {
+          type: 'InputNumber',
+          label: 'Hiện thị số bài viết',
+          value: 5,
+          value_vi: 5,
+        },
       },
       styles: {
         column: {
