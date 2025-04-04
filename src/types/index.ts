@@ -4,6 +4,14 @@ export interface FieldType {
   desc?: string
   value?: string | number | boolean
   [key: `value_${string}`]: string | number
+  options?: OptionType[]
+}
+
+export interface FieldStyleType {
+  type: string
+  label?: string
+  desc?: string
+  value: string | number | boolean
 }
 
 export interface ListItemsElementType {
@@ -15,7 +23,7 @@ export interface ListItemsElementType {
     [key: string]: FieldType
   }
   styles?: {
-    [key: string]: FieldType
+    [key: string]: FieldStyleType
   }
   // content?: {
   //   title?: FieldType
@@ -72,4 +80,9 @@ export interface CategoryType {
   englishName?: string
   englishSlug?: string
   parentId: string | null
+}
+
+export interface OptionType {
+  value: string | number
+  label: string
 }

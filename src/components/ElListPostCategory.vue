@@ -35,7 +35,9 @@ const handleDelete = () => {
     </div>
 
     <div class="flex justify-between items-center mb-3">
-      <h4 class="font-medium">{{ dataItem.content?.title?.value }}</h4>
+      <h4 class="font-medium">
+        {{ dataItem.content?.title?.value_vi || dataItem.content?.title?.value }}
+      </h4>
     </div>
 
     <div class="grid grid-cols-3 gap-5">

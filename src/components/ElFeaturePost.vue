@@ -22,7 +22,7 @@ const handleDelete = () => {
 </script>
 
 <template>
-  <div class="w-full bg-white rounded shadow-sm p-4 mb-2 relative">
+  <div class="w-full bg-white rounded shadow-sm p-4 relative">
     <div class="flex space-x-1 absolute top-1 right-1 z-10">
       <span class="drag-handle p-0.5 bg-black text-white rounded-sm cursor-move">
         <SvgIcon name="drag" class="w-4 h-4"></SvgIcon>
@@ -36,7 +36,9 @@ const handleDelete = () => {
     </div>
 
     <div class="flex justify-between items-center mb-3">
-      <h4 class="font-medium">{{ dataItem.content?.title?.value }}</h4>
+      <h4 class="font-medium">
+        {{ dataItem.content?.title?.value_vi || dataItem.content?.title?.value }}
+      </h4>
     </div>
 
     <div class="space-y-2">

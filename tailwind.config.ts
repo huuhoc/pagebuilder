@@ -11,8 +11,12 @@ export default {
     extend: {
       colors: {
         primary: '#00548E',
+        main: '#00548E',
         muted: '#f4f4f5',
         'muted-foreground': '#71717a',
+      },
+      spacing: {
+        '20px': '20px',
       },
     },
   },

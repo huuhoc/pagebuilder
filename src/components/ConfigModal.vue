@@ -69,6 +69,7 @@
                         :label="formData.content[itemContent].label"
                         :help="formData.content[itemContent].desc"
                         :language="lang"
+                        :options="formData.content[itemContent].options"
                       />
                     </div>
                   </div>

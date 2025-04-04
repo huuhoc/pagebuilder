@@ -174,6 +174,52 @@ export const useElementStore = defineStore('element', () => {
         },
       },
     },
+    {
+      id: uuidv6(),
+      el: 'ElBanner',
+      name: 'Banner',
+      content: {
+        title: {
+          type: 'InputText',
+          label: 'Tiêu đề',
+          value: 'Quảng cáo',
+        },
+        areaAds: {
+          type: 'BaseSelect',
+          label: 'Vị trí quảng cáo',
+          options: [
+            {
+              value: 'top',
+              label: 'Phía trên',
+            },
+            {
+              value: 'bottom',
+              label: 'Phía dưới',
+            },
+            {
+              value: 'center',
+              label: 'Giữa',
+            },
+            {
+              value: 'left',
+              label: 'Bên trái',
+            },
+            {
+              value: 'right',
+              label: 'Bên phải',
+            },
+          ],
+          value: '',
+        },
+      },
+      styles: {
+        column: {
+          type: 'BaseWidth',
+          label: 'Độ rộng',
+          value: 12,
+        },
+      },
+    },
   ])
 
   // Layout elements (actual placed elements)

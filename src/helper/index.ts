@@ -1,4 +1,5 @@
-export const getClassColumn = (column: number | undefined) => {
+/* eslint-disable @typescript-eslint/no-explicit-any */
+export const getClassColumn = (column: string | number | boolean | undefined) => {
   switch (column) {
     case 1:
       return 'w-1/12'

@@ -15,6 +15,7 @@ import ElListPostCategory from '@/assets/ElListPostCategory.png'
 import ElSliderPost from '@/assets/ElSliderPost.png'
 import ElFeaturePost from '@/assets/ElFeaturePost.png'
 import ElListLink from '@/assets/ElListLink.png'
+import ElBanner from '@/assets/ElBanner.png'
 
 const mapImages: Record<string, string> = {
   ElListPost,
@@ -22,6 +23,7 @@ const mapImages: Record<string, string> = {
   ElSliderPost,
   ElFeaturePost,
   ElListLink,
+  ElBanner,
 }
 
 // Use the element store

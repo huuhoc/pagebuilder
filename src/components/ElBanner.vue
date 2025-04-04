@@ -2,7 +2,6 @@
 import type { ListItemsElementType } from '@/types'
 import { useElementStore } from '@/stores/layouts'
 import { useSettingsElementStore } from '@/stores/settingsElementStore'
-
 import BaseSkeleton from '@/components/common/BaseSkeleton.vue'
 
 const props = defineProps<{
@@ -41,14 +40,12 @@ const handleDelete = () => {
       </h4>
     </div>
 
-    <div class="space-y-2">
-      <BaseSkeleton class="aspect-video w-full" />
-      <div class="flex gap-1 w-full">
-        <BaseSkeleton class="aspect-video w-full" />
-        <BaseSkeleton class="aspect-video w-full" />
-        <BaseSkeleton class="aspect-video w-full" />
-        <BaseSkeleton class="aspect-video w-full" />
-      </div>
+    <div class="relative">
+      <BaseSkeleton class="w-full max-h-[200px] aspect-video" />
+      <SvgIcon
+        name="image"
+        class="w-14 h-14 text-gray-400 absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2"
+      />
     </div>
   </div>
 </template>
