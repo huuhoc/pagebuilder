@@ -36,38 +36,18 @@ const handleDelete = () => {
     </div>
 
     <div class="flex justify-between items-center mb-3">
-      <h4 class="font-medium">
-        {{ dataItem.content?.title?.value_vi || dataItem.content?.title?.value }}
-      </h4>
+      <h4 class="font-medium">{{ dataItem.content?.title?.value }}</h4>
     </div>
-
-    <div v-if="dataItem.styles?.isThumbnailVertical.value" class="flex space-x-2">
-      <div class="flex-1 relative">
-        <BaseSkeleton class="aspect-video w-full h-full" />
-        <div class="flex items-center justify-between absolute top-1/2 -translate-y-1/2 w-full">
-          <BaseSkeleton class="w-8 h-8 bg-gray-400 -translate-x-1/2" />
-          <BaseSkeleton class="w-8 h-8 bg-gray-400 translate-x-1/2" />
-        </div>
-      </div>
-      <div v-if="dataItem.styles?.isThumbnail.value" class="flex flex-col gap-1 w-3/12">
+    <div class="relative">
+      <div class="flex gap-5 w-full">
+        <BaseSkeleton class="aspect-video w-full" />
         <BaseSkeleton class="aspect-video w-full" />
         <BaseSkeleton class="aspect-video w-full" />
         <BaseSkeleton class="aspect-video w-full" />
       </div>
-    </div>
-    <div v-else class="space-y-2">
-      <div class="flex-1 relative">
-        <BaseSkeleton class="aspect-video w-full" />
-        <div class="flex items-center justify-between absolute top-1/2 -translate-y-1/2 w-full">
-          <BaseSkeleton class="w-8 h-8 bg-gray-400 -translate-x-1/2" />
-          <BaseSkeleton class="w-8 h-8 bg-gray-400 translate-x-1/2" />
-        </div>
-      </div>
-      <div v-if="dataItem.styles?.isThumbnail.value" class="flex gap-1 w-full">
-        <BaseSkeleton class="aspect-video w-full" />
-        <BaseSkeleton class="aspect-video w-full" />
-        <BaseSkeleton class="aspect-video w-full" />
-        <BaseSkeleton class="aspect-video w-full" />
+      <div class="flex items-center justify-between absolute top-1/2 -translate-y-1/2 w-full">
+        <BaseSkeleton class="w-8 h-8 bg-gray-400 -translate-x-1/2" />
+        <BaseSkeleton class="w-8 h-8 bg-gray-400 translate-x-1/2" />
       </div>
     </div>
   </div>

@@ -18,6 +18,7 @@ export interface ListItemsElementType {
   id: string
   el: string
   name: string
+  description?: string
   children?: ListItemsElementType[]
   content?: {
     [key: string]: FieldType

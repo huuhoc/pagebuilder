@@ -105,8 +105,8 @@ const stopResize = () => {
     <div
       class="container mx-auto pt-2"
       :class="dataItem.styles?.hasContainer?.value ? 'px-10' : ''"
+      :style="{ backgroundColor: String(dataItem.styles?.['background-color'].value) }"
     >
-      <!-- :style="{ backgroundColor: dataItem.styles?.['background-color']?.value }" -->
       <Container
         group-name="list-elements"
         orientation="horizontal"
@@ -120,7 +120,7 @@ const stopResize = () => {
         <Draggable
           v-for="(item, index) in dataItem.children"
           :key="item.id"
-          :class="`relative !flex !h-auto ${getClassColumn(item.styles?.column.value)}`"
+          :class="`relative !flex !h-auto ${getClassColumn(Number(item.styles?.column.value))}`"
         >
           <component :is="resolveComponent(item.el)" :dataItem="item"></component>
           <div

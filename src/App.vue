@@ -16,6 +16,9 @@ import ElSliderPost from '@/assets/ElSliderPost.png'
 import ElFeaturePost from '@/assets/ElFeaturePost.png'
 import ElListLink from '@/assets/ElListLink.png'
 import ElBanner from '@/assets/ElBanner.png'
+import ElSliderPostAudio from '@/assets/ElSliderPostAudio.png'
+import ElSliderPostImage from '@/assets/ElSliderPostImage.png'
+import ElSliderPostVideo from '@/assets/ElSliderPostVideo.png'
 
 const mapImages: Record<string, string> = {
   ElListPost,
@@ -24,6 +27,9 @@ const mapImages: Record<string, string> = {
   ElFeaturePost,
   ElListLink,
   ElBanner,
+  ElSliderPostAudio,
+  ElSliderPostImage,
+  ElSliderPostVideo,
 }
 
 // Use the element store
@@ -97,24 +103,31 @@ onBeforeUnmount(() => {
 <template>
   <div id="aqt-contain" class="flex flex-1 bg-gray-100 overflow-hidden" ref="fullscreenElement">
     <div class="aqt-sidebar w-2/12 border-r border-gray-200">
-      <div>
+      <div class="overflow-hidden h-full flex flex-col">
         <h2 class="aqt-sidebar__title">Thành phần</h2>
-        <Container
-          behaviour="copy"
-          group-name="list-elements"
-          :get-child-payload="layoutStore.getChildPayload1"
-        >
-          <Draggable
-            v-for="item in layoutStore.availableElements"
-            :key="item.id"
-            class="aqt-sidebar__element"
+        <div class="flex-1 overflow-x-auto">
+          <Container
+            behaviour="copy"
+            group-name="list-elements"
+            :get-child-payload="layoutStore.getChildPayload1"
           >
-            <div class="cursor-pointer flex items-center gap-2">
-              <img :src="mapImages[item.el]" :alt="item.name" />
-              <span>{{ item.name }}</span>
-            </div>
-          </Draggable>
-        </Container>
+            <Draggable
+              v-for="item in layoutStore.availableElements"
+              :key="item.id"
+              class="aqt-sidebar__element"
+            >
+              <div class="cursor-pointer flex items-center gap-2">
+                <img :src="mapImages[item.el]" :alt="item.name" />
+                <div>
+                  <div class="text-sm">{{ item.name }}</div>
+                  <div v-if="item.description" class="text-xs text-gray-500">
+                    {{ item.description }}
+                  </div>
+                </div>
+              </div>
+            </Draggable>
+          </Container>
+        </div>
       </div>
     </div>
     <div class="w-10/12 flex flex-col relative">
@@ -123,8 +136,9 @@ onBeforeUnmount(() => {
           class="cursor-pointer p-2"
           :title="isFullScreen ? 'Đóng toàn màn hình' : 'Toàn màn hình'"
           @click="toggleFullScreen"
-          ><SvgIcon :name="isFullScreen ? 'shrink' : 'expand'" class="h-4 w-4"
-        /></span>
+        >
+          <SvgIcon :name="isFullScreen ? 'shrink' : 'expand'" class="h-4 w-4" />
+        </span>
       </div>
       <div class="flex-1 flex flex-col space-y-2 p-2.5 overflow-y-auto">
         <div class="flex-1 relative">

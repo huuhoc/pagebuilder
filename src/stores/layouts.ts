@@ -11,6 +11,7 @@ export const useElementStore = defineStore('element', () => {
       id: uuidv6(),
       el: 'ElSliderPost',
       name: 'Slider Post',
+      description: 'Hiển thị bài viết theo kiểu slider',
       content: {
         title: {
           type: 'InputText',
@@ -24,7 +25,7 @@ export const useElementStore = defineStore('element', () => {
           value_vi: '',
         },
         isFeature: {
-          type: 'SwitchBox',
+          type: 'CheckBox',
           label: 'Bài viết nổi bật',
         },
         numberPost: {
@@ -40,12 +41,28 @@ export const useElementStore = defineStore('element', () => {
           label: 'Độ rộng',
           value: 6,
         },
+        isThumbnail: {
+          type: 'CheckBox',
+          label: 'Hiện thị thumbnail',
+          value: true,
+        },
+        isThumbnailPost: {
+          type: 'CheckBox',
+          label: 'Hiện thị thumbnail là bài viết',
+          value: false,
+        },
+        isThumbnailVertical: {
+          type: 'CheckBox',
+          label: 'Hiện thị thumbnail dạng cột',
+          value: false,
+        },
       },
     },
     {
       id: uuidv6(),
       el: 'ElListPost',
       name: 'List Post',
+      description: 'Danh sách bài viết',
       content: {
         title: {
           type: 'InputText',
@@ -59,8 +76,16 @@ export const useElementStore = defineStore('element', () => {
           value_vi: '',
         },
         isFeature: {
-          type: 'SwitchBox',
+          type: 'CheckBox',
           label: 'Bài viết nổi bật',
+        },
+        isLienHiep: {
+          type: 'CheckBox',
+          label: 'Chỉ bài viết của liên hiệp',
+        },
+        isHoiThanhVien: {
+          type: 'CheckBox',
+          label: 'Chỉ bài viết của các hội thành viên',
         },
         numberPost: {
           type: 'InputNumber',
@@ -79,8 +104,53 @@ export const useElementStore = defineStore('element', () => {
     },
     {
       id: uuidv6(),
+      el: 'ElFeaturePost',
+      name: 'Feature Post',
+      description: 'Danh sách bài viết nổi bật',
+      content: {
+        title: {
+          type: 'InputText',
+          label: 'Tiêu đề',
+          value: 'Feature Post',
+        },
+        category: {
+          type: 'SelectCategory',
+          label: 'Danh mục',
+          desc: 'Mặc định không chọn danh mục bài viết sẽ lấy tất cả',
+          value_vi: '',
+        },
+        isFeature: {
+          type: 'CheckBox',
+          label: 'Bài viết nổi bật',
+        },
+        isLienHiep: {
+          type: 'CheckBox',
+          label: 'Chỉ bài viết của liên hiệp',
+        },
+        isHoiThanhVien: {
+          type: 'CheckBox',
+          label: 'Chỉ bài viết của các hội thành viên',
+        },
+        numberPost: {
+          type: 'InputNumber',
+          label: 'Hiện thị số bài viết',
+          value_vi: 3,
+          value_en: 3,
+        },
+      },
+      styles: {
+        column: {
+          type: 'BaseWidth',
+          label: 'Độ rộng',
+          value: 3,
+        },
+      },
+    },
+    {
+      id: uuidv6(),
       el: 'ElListPostCategory',
-      name: 'List Post Category',
+      name: 'Category Post',
+      description: 'Hiển thị bài viết theo chuyên mục',
       content: {
         title: {
           type: 'InputText',
@@ -106,47 +176,28 @@ export const useElementStore = defineStore('element', () => {
           label: 'Độ rộng',
           value: 12,
         },
-      },
-    },
-    {
-      id: uuidv6(),
-      el: 'ElFeaturePost',
-      name: 'Feature Post',
-      content: {
-        title: {
-          type: 'InputText',
-          label: 'Tiêu đề',
-          value: 'Feature Post',
+        hasGroupLastest: {
+          type: 'CheckBox',
+          label: 'Hiện thị nhóm bài viết mới nhất',
+          value: false,
         },
-        category: {
-          type: 'SelectCategory',
-          label: 'Danh mục',
-          desc: 'Mặc định không chọn danh mục bài viết sẽ lấy tất cả',
-          value_vi: '',
+        hasLink: {
+          type: 'CheckBox',
+          label: 'Có đường dẫn đi tới chuyên mục',
+          value: false,
         },
-        isFeature: {
-          type: 'SwitchBox',
-          label: 'Bài viết nổi bật',
-        },
-        numberPost: {
-          type: 'InputNumber',
-          label: 'Hiện thị số bài viết',
-          value_vi: 3,
-          value_en: 3,
-        },
-      },
-      styles: {
-        column: {
-          type: 'BaseWidth',
-          label: 'Độ rộng',
-          value: 3,
+        hasButtonViewMore: {
+          type: 'CheckBox',
+          label: 'Hiện thị button Xem Thêm',
+          value: false,
         },
       },
     },
     {
       id: uuidv6(),
       el: 'ElListLink',
-      name: 'List Link',
+      name: 'Liên kết website',
+      description: 'Hiển thị danh sách các liên kết website',
       content: {
         title: {
           type: 'InputText',
@@ -178,6 +229,7 @@ export const useElementStore = defineStore('element', () => {
       id: uuidv6(),
       el: 'ElBanner',
       name: 'Banner',
+      description: 'Hiện thị nội dung quảng cáo',
       content: {
         title: {
           type: 'InputText',
@@ -210,6 +262,84 @@ export const useElementStore = defineStore('element', () => {
             },
           ],
           value: '',
+        },
+      },
+      styles: {
+        column: {
+          type: 'BaseWidth',
+          label: 'Độ rộng',
+          value: 12,
+        },
+      },
+    },
+    {
+      id: uuidv6(),
+      el: 'ElSliderPostImage',
+      name: 'Slider Post Image',
+      description: 'Hiển thị slider thư viện ảnh',
+      content: {
+        title: {
+          type: 'InputText',
+          label: 'Tiêu đề',
+          value: 'List Link',
+        },
+        numberPost: {
+          type: 'InputNumber',
+          label: 'Hiện thị số bài viết',
+          value_vi: 5,
+          value_en: 5,
+        },
+      },
+      styles: {
+        column: {
+          type: 'BaseWidth',
+          label: 'Độ rộng',
+          value: 6,
+        },
+      },
+    },
+    {
+      id: uuidv6(),
+      el: 'ElSliderPostVideo',
+      name: 'Slider Post Video',
+      description: 'Hiển thị slider thư viện video',
+      content: {
+        title: {
+          type: 'InputText',
+          label: 'Tiêu đề',
+          value: 'List Link',
+        },
+        numberPost: {
+          type: 'InputNumber',
+          label: 'Hiện thị số bài viết',
+          value_vi: 5,
+          value_en: 5,
+        },
+      },
+      styles: {
+        column: {
+          type: 'BaseWidth',
+          label: 'Độ rộng',
+          value: 6,
+        },
+      },
+    },
+    {
+      id: uuidv6(),
+      el: 'ElSliderPostAudio',
+      name: 'Slider Post Audio',
+      description: 'Hiển thị slider thư viện audio',
+      content: {
+        title: {
+          type: 'InputText',
+          label: 'Tiêu đề',
+          value: 'List Link',
+        },
+        numberPost: {
+          type: 'InputNumber',
+          label: 'Hiện thị số bài viết',
+          value_vi: 5,
+          value_en: 5,
         },
       },
       styles: {
