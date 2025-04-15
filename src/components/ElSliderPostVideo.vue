@@ -39,33 +39,22 @@ const handleDelete = () => {
       <h4 class="font-medium">{{ dataItem.content?.title?.value }}</h4>
     </div>
 
-    <div v-if="dataItem.styles?.isThumbnailVertical.value" class="flex space-x-2">
-      <div class="flex-1 relative">
-        <BaseSkeleton class="aspect-video w-full h-full" />
-        <div class="flex items-center justify-between absolute top-1/2 -translate-y-1/2 w-full">
-          <BaseSkeleton class="w-8 h-8 bg-gray-400 -translate-x-1/2" />
-          <BaseSkeleton class="w-8 h-8 bg-gray-400 translate-x-1/2" />
+    <div class="space-y-2">
+      <div class="relative">
+        <BaseSkeleton class="aspect-video w-full" />
+        <BaseSkeleton class="h-3 w-5/12 bg-gray-400 absolute bottom-10 left-3" />
+        <BaseSkeleton class="h-5 w-11/12 bg-gray-400 absolute bottom-3 left-3" />
+      </div>
+      <div class="flex gap-1 w-full items-center justify-between">
+        <div class="flex items-center gap-1">
+          <BaseSkeleton class="h-1.5 w-7 rounded-none" />
+          <BaseSkeleton class="h-1.5 w-7 rounded-none" />
+          <BaseSkeleton class="h-1.5 w-7 rounded-none" />
         </div>
-      </div>
-      <div v-if="dataItem.styles?.isThumbnail.value" class="flex flex-col gap-1 w-3/12">
-        <BaseSkeleton class="aspect-video w-full" />
-        <BaseSkeleton class="aspect-video w-full" />
-        <BaseSkeleton class="aspect-video w-full" />
-      </div>
-    </div>
-    <div v-else class="space-y-2">
-      <div class="flex-1 relative">
-        <BaseSkeleton class="aspect-video w-full" />
-        <div class="flex items-center justify-between absolute top-1/2 -translate-y-1/2 w-full">
-          <BaseSkeleton class="w-8 h-8 bg-gray-400 -translate-x-1/2" />
-          <BaseSkeleton class="w-8 h-8 bg-gray-400 translate-x-1/2" />
+        <div class="flex items-center gap-1">
+          <BaseSkeleton class="h-8 w-8" />
+          <BaseSkeleton class="h-8 w-8" />
         </div>
-      </div>
-      <div v-if="dataItem.styles?.isThumbnail.value" class="flex gap-1 w-full">
-        <BaseSkeleton class="aspect-video w-full" />
-        <BaseSkeleton class="aspect-video w-full" />
-        <BaseSkeleton class="aspect-video w-full" />
-        <BaseSkeleton class="aspect-video w-full" />
       </div>
     </div>
   </div>

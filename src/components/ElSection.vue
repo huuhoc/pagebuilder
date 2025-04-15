@@ -101,12 +101,12 @@ const stopResize = () => {
             </span>
         </div>
         <div class="container mx-auto px-2 pt-2" :class="{ 'px-10': dataItem.styles?.hasContainer?.value }"
-            :style="{ backgroundColor: dataItem.styles?.['background-color'].value }">
+            :style="{ backgroundColor: String(dataItem.styles?.['background-color'].value) }">
             <Container group-name="list-elements" orientation="horizontal" drag-handle-selector=".drag-handle"
                 behaviour="contain" :get-child-payload="getChildPayload2" @drop="onDropLayout($event)"
                 class="!flex gap-3" ref="refContainer">
                 <Draggable v-for="(item, index) in dataItem.children" :key="item.id"
-                    :class="`relative flex ${getClassColumn(item.styles?.column.value)}`">
+                    :class="`relative flex ${getClassColumn(Number(item.styles?.column.value))}`">
                     <component :is="resolveComponent(item.el)" :dataItem="item"></component>
                     <div v-if="dataItem.children && index < dataItem.children.length - 1"
                         class="flex items-center justify-center absolute top-0 bottom-0 -right-1.5 w-1.5 translate-x-1/2 cursor-col-resize bg-transparent hover:bg-blue-200 hover:bg-opacity-30 z-10"
