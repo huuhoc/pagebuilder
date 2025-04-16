@@ -389,7 +389,14 @@ export const useElementStore = defineStore('element', () => {
         title: {
           type: 'InputText',
           label: 'Tiêu đề',
-          value: 'Section',
+          value: '',
+          value_vi: '',
+        },
+        url: {
+          type: 'InputText',
+          label: 'Đường dẫn',
+          value: '',
+          value_vi: '',
         },
       },
       styles: {

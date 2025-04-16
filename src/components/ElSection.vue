@@ -103,10 +103,11 @@ const stopResize = () => {
       </span>
     </div>
     <div
-      class="container mx-auto pt-2"
+      class="container mx-auto pt-2 space-y-3"
       :class="dataItem.styles?.hasContainer?.value ? 'px-10' : ''"
       :style="{ backgroundColor: String(dataItem.styles?.['background-color'].value) }"
     >
+      <div>{{ dataItem?.content?.title?.value_vi || dataItem?.content?.title?.value_en }}</div>
       <Container
         group-name="list-elements"
         orientation="horizontal"
