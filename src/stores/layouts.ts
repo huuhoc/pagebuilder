@@ -350,6 +350,27 @@ export const useElementStore = defineStore('element', () => {
         },
       },
     },
+    {
+      id: uuidv6(),
+      el: 'ElMenu',
+      name: 'Menu',
+      description: 'Hiện thị nội dung danh sách menu',
+      content: {
+        typeMenu: {
+          type: 'SelectMenus',
+          label: 'Menu',
+          value: '',
+          value_vi: '',
+        },
+      },
+      styles: {
+        column: {
+          type: 'BaseWidth',
+          label: 'Độ rộng',
+          value: 4,
+        },
+      },
+    },
   ])
 
   // Layout elements (actual placed elements)

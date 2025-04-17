@@ -5,6 +5,7 @@ import { useElementStore } from '@/stores/layouts'
 import { useSettingsElementStore } from '@/stores/settingsElementStore'
 import { useCategoryStore } from '@/stores/categoryStore'
 import { getList } from '@/services/categories'
+import { getListMenu } from '@/services/menus'
 import { useConfigStore } from '@/stores/configStore'
 
 import ConfigModal from '@/components/ConfigModal.vue'
@@ -19,6 +20,7 @@ import ElBanner from '@/assets/ElBanner.png'
 import ElSliderPostAudio from '@/assets/ElSliderPostAudio.png'
 import ElSliderPostImage from '@/assets/ElSliderPostImage.png'
 import ElSliderPostVideo from '@/assets/ElSliderPostVideo.png'
+import ElMenu from '@/assets/ElMenu.png'
 
 const mapImages: Record<string, string> = {
   ElListPost,
@@ -30,6 +32,7 @@ const mapImages: Record<string, string> = {
   ElSliderPostAudio,
   ElSliderPostImage,
   ElSliderPostVideo,
+  ElMenu,
 }
 
 // Use the element store
@@ -88,6 +91,8 @@ onMounted(async () => {
   document.addEventListener('webkitfullscreenchange', onFullScreenChange)
   document.addEventListener('mozfullscreenchange', onFullScreenChange)
   document.addEventListener('MSFullscreenChange', onFullScreenChange)
+  const listMenu = await getListMenu(configStore.appApi)
+  categoryStore.setMenus(listMenu)
   const listCate = await getList(configStore.appApi, { SkipCount: 0, MaxResultCount: 9999 })
   categoryStore.setCategories(listCate)
 })

@@ -7,7 +7,7 @@ export const useConfigStore = defineStore('config', {
     appApi: 'https://haufo-apicms-dev.aequitas.dev',
     appCoreApi: 'https://haufo-core-dev.aequitas.dev',
     isInitialized: false,
-    languages: ['vi', 'en', 'fr'],
+    languages: ['vi', 'en'],
   }),
 
   actions: {

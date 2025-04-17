@@ -87,3 +87,10 @@ export interface OptionType {
   value: string | number
   label: string
 }
+
+export interface MenuType {
+  id: string
+  name: string
+  code: string
+  description?: string
+}
