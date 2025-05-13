@@ -104,6 +104,61 @@ export const useElementStore = defineStore('element', () => {
     },
     {
       id: uuidv6(),
+      el: 'ElListPostStacked',
+      name: 'List Post Stacked',
+      description: 'Danh sách bài viết',
+      content: {
+        title: {
+          type: 'InputText',
+          label: 'Tiêu đề',
+          value: 'List Post',
+        },
+        category: {
+          type: 'SelectCategory',
+          label: 'Danh mục',
+          desc: 'Mặc định không chọn danh mục bài viết sẽ lấy tất cả',
+          value_vi: '',
+        },
+        titlePage: {
+          type: 'InputText',
+          label: 'Tiêu đề trang thành phần',
+          value: 'List Post Page',
+        },
+        page: {
+          type: 'SelectPage',
+          label: 'Danh mục trang thành phần',
+          desc: 'Mặc định không chọn danh mục bài viết sẽ lấy tất cả',
+          value_vi: '',
+        },
+        isFeature: {
+          type: 'CheckBox',
+          label: 'Bài viết nổi bật',
+        },
+        isLienHiep: {
+          type: 'CheckBox',
+          label: 'Chỉ bài viết của liên hiệp',
+        },
+        isHoiThanhVien: {
+          type: 'CheckBox',
+          label: 'Chỉ bài viết của các hội thành viên',
+        },
+        numberPost: {
+          type: 'InputNumber',
+          label: 'Hiện thị số bài viết',
+          value_vi: 5,
+          value_en: 5,
+        },
+      },
+      styles: {
+        column: {
+          type: 'BaseWidth',
+          label: 'Độ rộng',
+          value: 3,
+        },
+      },
+    },
+    {
+      id: uuidv6(),
       el: 'ElFeaturePost',
       name: 'Feature Post',
       description: 'Danh sách bài viết nổi bật',
@@ -189,6 +244,11 @@ export const useElementStore = defineStore('element', () => {
         hasButtonViewMore: {
           type: 'CheckBox',
           label: 'Hiện thị button Xem Thêm',
+          value: false,
+        },
+        hasButtonViewFile: {
+          type: 'CheckBox',
+          label: 'Hiển thị chế độ xem danh sách file đính kèm',
           value: false,
         },
       },

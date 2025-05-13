@@ -34,7 +34,7 @@
                 >Kiểu dáng</span
               >
             </div>
-            <div class="border border-muted p-3">
+            <div class="border border-muted p-3 max-h-[70vh] overflow-auto">
               <div v-if="tabActive === 'content' && formData?.content">
                 <div class="tab-languages flex items-center gap-2 px-3 -mb-px">
                   <span

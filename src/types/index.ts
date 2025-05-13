@@ -94,3 +94,12 @@ export interface MenuType {
   code: string
   description?: string
 }
+
+export interface PageType {
+  id: string
+  title: string
+  title_En: string
+  slug: string
+  slug_En?: string
+  parentId: string | null
+}
