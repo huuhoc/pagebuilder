@@ -4,7 +4,7 @@ import type { ConfigState } from '@/types/index'
 export const useConfigStore = defineStore('config', {
   state: (): ConfigState => ({
     root: '',
-    appApi: 'https://localhost:44311',
+    appApi: 'https://haufo-apicms-test.aequitas.dev',
     appCoreApi: 'https://haufo-core-test.aequitas.dev',
     isInitialized: false,
     languages: ['vi', 'en'],

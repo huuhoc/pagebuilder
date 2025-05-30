@@ -419,8 +419,8 @@ export const useElementStore = defineStore('element', () => {
         typeMenu: {
           type: 'SelectMenus',
           label: 'Menu',
-          value: '',
           value_vi: '',
+          value_en: '',
         },
       },
       styles: {

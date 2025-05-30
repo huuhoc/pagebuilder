@@ -48,7 +48,7 @@ import { ref, nextTick, onMounted, onUnmounted } from 'vue'
 import type { OptionType } from '@/types'
 import type { PropType } from 'vue'
 
-defineProps({
+const props = defineProps({
   options: {
     type: Array as PropType<OptionType[]>,
   },
@@ -75,10 +75,15 @@ defineProps({
 
 const emit = defineEmits(['update:modelValue'])
 
+const optionInt =
+  props.options && props.modelValue
+    ? props.options?.find((item: OptionType) => item.value === props.modelValue)
+    : undefined
+
 const isOpen = ref(false)
 const isDropdownAbove = ref(false)
 const dropdownContent = ref<HTMLElement>()
-const selectedOption = ref<OptionType>()
+const selectedOption = ref<OptionType | undefined>(optionInt)
 
 // Handle clicks outside to close dropdown
 const handleClickOutside = (event: MouseEvent) => {
@@ -88,9 +93,9 @@ const handleClickOutside = (event: MouseEvent) => {
   }
 }
 
-onMounted(() => {
-  document.addEventListener('click', handleClickOutside)
-})
+// onMounted(() => {
+//   document.addEventListener('click', handleClickOutside)
+// })
 
 onUnmounted(() => {
   document.removeEventListener('click', handleClickOutside)
