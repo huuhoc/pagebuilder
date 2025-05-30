@@ -4,7 +4,7 @@
       class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
       >{{ label }}</label
     >
-    <div class="dropdown-select relative">
+    <div class="dropdown-select relative" ref="dropdown">
       <div
         @click="toggleDropdown"
         class="mt-1 relative w-full px-3 py-1.5 text-left bg-white border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
@@ -83,19 +83,19 @@ const optionInt =
 const isOpen = ref(false)
 const isDropdownAbove = ref(false)
 const dropdownContent = ref<HTMLElement>()
+const dropdown = ref<HTMLElement>()
 const selectedOption = ref<OptionType | undefined>(optionInt)
 
 // Handle clicks outside to close dropdown
 const handleClickOutside = (event: MouseEvent) => {
-  const dropdown = document.querySelector('.dropdown-select')
-  if (dropdown && !dropdown.contains(event.target as Node)) {
+  if (dropdown.value && !dropdown.value.contains(event.target as Node)) {
     isOpen.value = false
   }
 }
 
-// onMounted(() => {
-//   document.addEventListener('click', handleClickOutside)
-// })
+onMounted(() => {
+  document.addEventListener('click', handleClickOutside)
+})
 
 onUnmounted(() => {
   document.removeEventListener('click', handleClickOutside)
