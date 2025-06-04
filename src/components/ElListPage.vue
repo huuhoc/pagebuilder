@@ -39,52 +39,23 @@ const handleDelete = () => {
     <div>
       <div class="flex justify-between items-center mb-3">
         <h4 class="font-medium">
-          {{ dataItem.content?.title1?.value_vi || dataItem.content?.title1?.value }}
+          {{ dataItem.content?.titlePage?.value_vi || dataItem.content?.titlePage?.value }}
         </h4>
       </div>
 
       <div class="flex-1 overflow-hidden relative">
         <div class="space-y-2 flex-1 flex flex-col inset-0">
           <div
-            v-for="i in 3"
+            v-for="i in 5"
             :key="i"
-            class="flex items-start gap-3 border-b border-gray-100 pb-2 last:border-b-0"
+            class="flex flex-col items-center justify-center gap-3 bg-gray-100 rounded p-2"
           >
-            <BaseSkeleton class="w-32 aspect-video" />
-            <div class="space-y-2 flex-1">
-              <BaseSkeleton class="w-1/2 h-3" />
+            <BaseSkeleton class="w-10 h-10 aspect-video" />
+            <div class="space-y-2 w-full flex flex-col items-center justify-center">
+              <BaseSkeleton class="w-40 h-3" />
               <div class="space-y-1">
-                <BaseSkeleton class="w-full h-2" />
-                <BaseSkeleton class="w-full h-2" />
+                <BaseSkeleton class="w-20 h-2" />
               </div>
-              <BaseSkeleton class="w-1/3 h-2" />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div>
-      <div class="flex justify-between items-center mb-3">
-        <h4 class="font-medium">
-          {{ dataItem.content?.title2?.value_vi || dataItem.content?.title2?.value }}
-        </h4>
-      </div>
-
-      <div class="flex-1 overflow-hidden relative">
-        <div class="space-y-2 flex-1 flex flex-col inset-0">
-          <div
-            v-for="i in 3"
-            :key="i"
-            class="flex items-start gap-3 border-b border-gray-100 pb-2 last:border-b-0"
-          >
-            <BaseSkeleton class="w-32 aspect-video" />
-            <div class="space-y-2 flex-1">
-              <BaseSkeleton class="w-1/2 h-3" />
-              <div class="space-y-1">
-                <BaseSkeleton class="w-full h-2" />
-                <BaseSkeleton class="w-full h-2" />
-              </div>
-              <BaseSkeleton class="w-1/3 h-2" />
             </div>
           </div>
         </div>

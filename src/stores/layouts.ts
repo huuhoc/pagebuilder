@@ -108,45 +108,61 @@ export const useElementStore = defineStore('element', () => {
       name: 'List Post Stacked',
       description: 'Danh sách bài viết',
       content: {
-        title: {
+        title1: {
           type: 'InputText',
-          label: 'Tiêu đề',
-          value: 'List Post',
-        },
-        category: {
-          type: 'SelectCategory',
-          label: 'Danh mục',
-          desc: 'Mặc định không chọn danh mục bài viết sẽ lấy tất cả',
-          value_vi: '',
-        },
-        titlePage: {
-          type: 'InputText',
-          label: 'Tiêu đề trang thành phần',
-          value: 'List Post Page',
-        },
-        page: {
-          type: 'SelectPage',
-          label: 'Danh mục trang thành phần',
-          desc: 'Mặc định không chọn danh mục bài viết sẽ lấy tất cả',
-          value_vi: '',
-        },
-        isFeature: {
-          type: 'CheckBox',
-          label: 'Bài viết nổi bật',
+          label: 'Tiêu đề bài viết của liên hiệp',
+          value: 'List Post 1',
         },
         isLienHiep: {
           type: 'CheckBox',
-          label: 'Chỉ bài viết của liên hiệp',
+          label: 'Chọn bài viết của liên hiệp',
+        },
+        numberPost1: {
+          type: 'InputNumber',
+          label: 'Hiện thị số bài viết của liên hiệp',
+          value_vi: 5,
+          value_en: 5,
+        },
+        title2: {
+          type: 'InputText',
+          label: 'Tiêu đề bài viết của các hội thành viên',
+          value: 'List Post 2',
         },
         isHoiThanhVien: {
           type: 'CheckBox',
-          label: 'Chỉ bài viết của các hội thành viên',
+          label: 'Chọn bài viết của các hội thành viên',
         },
-        numberPost: {
+        numberPost2: {
           type: 'InputNumber',
-          label: 'Hiện thị số bài viết',
+          label: 'Hiện thị số bài viết của các hội thành viên',
           value_vi: 5,
           value_en: 5,
+        },
+      },
+      styles: {
+        column: {
+          type: 'BaseWidth',
+          label: 'Độ rộng',
+          value: 3,
+        },
+      },
+    },
+    {
+      id: uuidv6(),
+      el: 'ElListPage',
+      name: 'List Page',
+      description: 'Danh sách trang thành phần',
+      content: {
+        titlePage: {
+          type: 'InputText',
+          label: 'Tiêu đề',
+          value: 'List Page',
+        },
+        page: {
+          type: 'SelectPage',
+          label: 'Danh mục',
+          desc: '',
+          value_vi: '',
         },
       },
       styles: {
