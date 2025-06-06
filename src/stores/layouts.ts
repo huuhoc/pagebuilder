@@ -18,10 +18,15 @@ export const useElementStore = defineStore('element', () => {
           label: 'Tiêu đề',
           value: 'Slider Post',
         },
+        description: {
+          type: 'InputText',
+          label: 'Nội dung',
+          value: 'Description',
+        },
         category: {
           type: 'SelectCategory',
           label: 'Danh mục',
-          desc: 'Mặc định không chọn danh mục bài viết sẽ lấy tất cả',
+          desc: 'Danh mục bài viết',
           value_vi: '',
         },
         isFeature: {
@@ -99,6 +104,186 @@ export const useElementStore = defineStore('element', () => {
           type: 'BaseWidth',
           label: 'Độ rộng',
           value: 3,
+        },
+      },
+    },
+    {
+      id: uuidv6(),
+      el: 'ElSliderHome',
+      name: 'Slider Home',
+      description: 'Slider Home',
+      content: {
+        title: {
+          type: 'InputText',
+          label: 'Tiêu đề',
+          value: 'Slier Home',
+        },
+        description: {
+          type: 'InputText',
+          label: 'Nội dung',
+          value: 'Description',
+        },
+      },
+      styles: {
+        column: {
+          type: 'BaseWidth',
+          label: 'Độ rộng',
+          value: 12,
+        },
+      },
+    },
+    {
+      id: uuidv6(),
+      el: 'ElSliderPostHome',
+      name: 'Slider Post Home',
+      description: 'Slider Post Home',
+      content: {
+        title: {
+          type: 'InputText',
+          label: 'Tiêu đề',
+          value: 'Slier Post Home',
+        },
+        description: {
+          type: 'InputText',
+          label: 'Nội dung',
+          value: 'Description',
+        },
+      },
+      styles: {
+        column: {
+          type: 'BaseWidth',
+          label: 'Độ rộng',
+          value: 12,
+        },
+      },
+    },
+    {
+      id: uuidv6(),
+      el: 'ElIntroHome',
+      name: 'Intro Home',
+      description: 'Danh sách bài viết',
+      content: {
+        title: {
+          type: 'InputText',
+          label: 'Tiêu đề',
+          value: 'Intro Home',
+        },
+        description: {
+          type: 'InputText',
+          label: 'Nội dung',
+          value: 'Description',
+        },
+        imageBanner: {
+          type: 'UploadFile',
+          label: 'Ảnh banner trái',
+          value: 'Description',
+        },
+        title1: {
+          type: 'InputText',
+          label: 'Tiêu đề 1',
+          value: 'Intro Home',
+        },
+        description1: {
+          type: 'InputText',
+          label: 'Nội dung 1',
+          value: 'Description',
+        },
+        image1: {
+          type: 'UploadFile',
+          label: 'Ảnh 1',
+          value: 'Description',
+        },
+        title2: {
+          type: 'InputText',
+          label: 'Tiêu đề 2',
+          value: 'Intro Home',
+        },
+        description2: {
+          type: 'InputText',
+          label: 'Nội dung 2',
+          value: 'Description',
+        },
+        image2: {
+          type: 'UploadFile',
+          label: 'Ảnh 2',
+          value: 'Description',
+        },
+        title3: {
+          type: 'InputText',
+          label: 'Tiêu đề 3',
+          value: 'Intro Home',
+        },
+        description3: {
+          type: 'InputText',
+          label: 'Nội dung 3',
+          value: 'Description',
+        },
+        image3: {
+          type: 'UploadFile',
+          label: 'Ảnh 3',
+          value: 'Description',
+        },
+      },
+      styles: {
+        column: {
+          type: 'BaseWidth',
+          label: 'Độ rộng',
+          value: 12,
+        },
+      },
+    },
+    {
+      id: uuidv6(),
+      el: 'ElBoxDonate',
+      name: 'Box Donate',
+      description: 'Box Donate',
+      content: {
+        title: {
+          type: 'InputText',
+          label: 'Tiêu đề',
+          value: 'Box Donate',
+        },
+        description: {
+          type: 'InputText',
+          label: 'Nội dung',
+          value: 'Description',
+        },
+        imageBanner: {
+          type: 'UploadFile',
+          label: 'Ảnh nền',
+          value: 'Description',
+        },
+      },
+      styles: {
+        column: {
+          type: 'BaseWidth',
+          label: 'Độ rộng',
+          value: 12,
+        },
+      },
+    },
+    {
+      id: uuidv6(),
+      el: 'ElFundActivitiesViaData',
+      name: 'Fund Activities Via Data',
+      description: 'Fund Activities Via Data',
+      content: {
+        title: {
+          type: 'InputText',
+          label: 'Tiêu đề',
+          value: 'Fund Activities Via Data',
+        },
+        description: {
+          type: 'InputText',
+          label: 'Nội dung',
+          value: 'Description',
+        },
+      },
+      styles: {
+        column: {
+          type: 'BaseWidth',
+          label: 'Độ rộng',
+          value: 12,
         },
       },
     },

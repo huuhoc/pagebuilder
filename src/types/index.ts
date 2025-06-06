@@ -54,6 +54,7 @@ export interface ConfigState {
   root: string
   appApi: string
   appCoreApi: string
+  appCmsApi: string
   isInitialized?: boolean
   languages?: string[]
 }
