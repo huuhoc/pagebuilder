@@ -4,7 +4,7 @@
       v-if="isOpen"
       class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4"
     >
-      <div class="bg-white rounded shadow-xl w-full max-w-2xl overflow-hidden">
+      <div class="bg-white rounded shadow-xl w-full max-w-4xl overflow-hidden">
         <div class="flex justify-between items-center px-4 py-2 border-b">
           <h3 class="text-base font-medium">
             Cài đặt {{ settingsElementStore.elementSelected?.name }}
@@ -34,24 +34,9 @@
                 >Kiểu dáng</span
               >
             </div>
-            <div class="border border-muted p-3 max-h-[70vh] overflow-auto">
+            <div class="border border-muted p-3 mt-2 max-h-[70vh] overflow-auto">
               <div v-if="tabActive === 'content' && formData?.content">
-                <div class="tab-languages flex items-center gap-2 px-3 -mb-px">
-                  <span
-                    v-for="flag in languages"
-                    class="cursor-pointer px-2 py-1 border rounded-t-sm"
-                    :key="`lang-${flag}`"
-                    :class="
-                      langCurrent === flag
-                        ? 'border-primary border-b-white'
-                        : 'border-muted border-b-primary rounded-b-sm'
-                    "
-                    @click="() => (langCurrent = flag)"
-                  >
-                    <SvgIcon :name="`flag-${flag}`" class="w-4 h-4" />
-                  </span>
-                </div>
-                <div class="border-t border-primary py-3">
+                <div class="border-primary">
                   <div
                     v-for="lang in languages"
                     v-show="langCurrent === lang"
@@ -154,6 +139,7 @@ const closeModal = () => {
 }
 
 const saveChanges = () => {
+  console.log('formData', formData)
   layoutStore.updateElement({ id: elementSelected?.id, content: formData })
   closeModal()
 }

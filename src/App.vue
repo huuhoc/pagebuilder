@@ -30,7 +30,12 @@ import ElBoxDonate from '@/assets/ElBoxDonate.png'
 import ElFundActivitiesViaData from '@/assets/ElFundActivitiesViaData.png'
 import ElSliderHome from '@/assets/ElSliderHome.png'
 import ElSliderPostHome from '@/assets/ElSliderPostHome.png'
-
+import ElBoxTitle from '@/assets/ElBoxTitle.png'
+import ElBoxDongGop from '@/assets/ElBoxDongGop.png'
+import ElBoxDescription from '@/assets/ElBoxDescription.png'
+import ElBoxAbout from '@/assets/ElBoxAbout.png'
+import ElBoxTitleAbout from '@/assets/ElBoxTitleAbout.png'
+import ElBoxDescriptionDonate from '@/assets/ElBoxDescriptionDonate.png'
 
 const mapImages: Record<string, string> = {
   ElListPost,
@@ -50,6 +55,12 @@ const mapImages: Record<string, string> = {
   ElFundActivitiesViaData,
   ElSliderHome,
   ElSliderPostHome,
+  ElBoxDongGop,
+  ElBoxTitle,
+  ElBoxDescription,
+  ElBoxAbout,
+  ElBoxTitleAbout,
+  ElBoxDescriptionDonate,
 }
 
 // Use the element store
